@@ -1,0 +1,20 @@
+# Class files
+*.class
+
+# Package files
+*.jar
+
+# Mac files 
+.DS_store
+
+# IDE & other files 
+.project
+.metadata/
+.classpath
+.settings/
+target/
+bin/
+test-output/
+.idea/
+*.iml
+*.log
