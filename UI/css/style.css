@@ -137,20 +137,21 @@
 }
 
 .user-commands {
-    /*border: 2px dashed darkcyan;*/
     margin-top: 20px;
-    float: right;
-    width: 55%;
+    width: 100%;
+    text-align: center;
+    overflow: auto;
 }
 
 .user-commands .add-news-button {
-    float: left;
-    /*border: 2px dashed greenyellow;*/
+    display: inline-block;
+    padding-bottom: 10px;
+    border-bottom: 2px solid grey;
 }
 
 .user-commands .load-more-button {
-    float: left;
-    /*border: 2px dashed darkolivegreen;*/
+    display: inline-block;
+    margin-top: 10px;
 }
 
 .add-news-button input{
