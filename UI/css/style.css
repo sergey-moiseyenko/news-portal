@@ -43,15 +43,107 @@
 .top-tags {
     /*border: 2px dashed #ff3cf6;*/
     text-align: center;
+    float: left;
+}
+
+.top-tags-list {
+    overflow: auto;
 }
 
 .top-tags .top-tags-list li {
-    display: inline;
     color: white;
     text-decoration: underline;
     font-size: 20px;
     padding-right: 10px;
+    list-style: none;
+    clear: both;
+    float: left;
+    margin-bottom: 10px;
 }
+
+/* Filtration*/
+
+.drop-down-menu .filtration-frame {
+    position: absolute;
+    top: -999px;
+    height:100%;
+    width: 30%;
+    color: white;
+    background-color: grey;
+    /*border: 2px dashed greenyellow;*/
+    opacity: 0;
+    transition: 1s opacity;
+    overflow: auto;
+}
+
+.field {
+    position: relative;
+    padding: 20px 20px 20px 20px;
+    text-align: center;
+}
+
+.field .label-text {
+    display: block;
+    line-height: 16px;
+    font-size: 20px;
+    font-weight: 400;
+    color: white;
+}
+
+.field .input-text {
+    width: 100%;
+    background:transparent;
+    border: none;
+    display: block;
+    line-height: 16px;
+    font-family: "Times New Roman";
+    font-size: 16px;
+    -webkit-appearance: none;
+    border-bottom: 2px solid white;
+    padding: 8px 0;
+    color: white;
+}
+
+.filtration-button button {
+    background-color: black;
+    color: white;
+}
+
+.drop-down-menu div:hover {
+    cursor: pointer;
+}
+
+   .drop-down-menu:hover .filtration-frame {
+    top:10px;
+    z-index:9999;
+    background: black;
+    opacity: 0.8;
+}
+
+.form-frames {
+    width: 100%;
+}
+
+.icons div{
+    display: inline-block;
+    /*border: 2px dashed darkblue;*/
+    background: url("../images/sprites/icon1-sprite.jpg") no-repeat;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    float: left;
+    /*border: 2px dashed white;*/
+    overflow: auto;
+    border-radius: 10%;
+}
+
+.icons .filtration-icon{
+    background-position: -466px  -232px;
+    /*border: 2px dashed orange;*/
+}
+
+/*----------
+----------*/
 
 .content {
     margin-top: 20px;
@@ -72,12 +164,16 @@
     display: inline-block;
 }
 
-.news-list .news-tag {
+.news .news-tag {
     /*border: 2px dashed green;*/
-    text-decoration: underline;
     margin-bottom: 20px;
     margin-top: 20px;
     color: red;
+}
+
+.news-tag a:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .news-list .news-description {
