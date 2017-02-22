@@ -107,13 +107,14 @@
 .filtration-button button {
     background-color: black;
     color: white;
+    border: 2px solid yellow;
 }
 
 .drop-down-menu div:hover {
     cursor: pointer;
 }
 
-   .drop-down-menu:hover .filtration-frame {
+.drop-down-menu:hover .filtration-frame {
     top:10px;
     z-index:9999;
     background: black;
