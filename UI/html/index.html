@@ -2,6 +2,7 @@
 <html>
 <head>
     <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/reset.css" rel="stylesheet">
 </head>
 <body>
     <div class="main-page">
@@ -9,11 +10,12 @@
             <div class="logo">
                 <img src="../images/logo.png"/>
             </div>
-            <div class="sign-in-cell">
-                <input type="button" class="sign-in-button" value="sing in"/>
+            <div class="sign-in-out-cell">
+                <label class="user-name">Sergey</label>
+                <input type="button" class="sign-in-button" value="sing out"/>
             </div>
             <div class="main-title clear">
-                NEWS PORTAL
+                <div>NEWS PORTAL</div>
             </div>
 
             <div class="drop-down-menu">
@@ -21,7 +23,20 @@
                     <div class="field">
                         <label for="input-tags" class="label-text">Input tags</label>
                         <input type="text" id="input-tags" class="input-text"/>
+                        <div class="clear"></div>
+                        <div class="select-tags">
+                            <select>
+                                <option>Tag list</option>
+                                <option>Media</option>
+                                <option>Sport</option>
+                                <option>Politics</option>
+                            </select>
+                        </div>
+                        <div class="add-tag-button">
+                            <input type="button"  value="add"/>
+                        </div>
                     </div>
+                    <div class="clear"></div>
                     <div class="field">
                         <label for="input-author" class="label-text">Input Author</label>
                         <input type="text" id="input-author" class="input-text"/>
@@ -42,22 +57,6 @@
                     <div class="filtration-icon"></div>
                 </div>
             </div>
-
-            <!--<ul class="drop-down-list">
-                <li>
-
-                </li>
-
-                <li>
-
-                </li>
-
-                <li>
-
-                </li>
-            </ul>
-            -->
-
         </div>
 
         <div class="content">
