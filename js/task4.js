@@ -1,12 +1,8 @@
-/**
- * Created by Igor on 3/1/17.
- */
-
 ;!function () {
 
   'use strict';
 
-  var articles = [
+  let articles = [
 
    {
       id : '1',
@@ -36,7 +32,7 @@
       author:'Moiseyenko',
       content: "Taylor Swift's been teasing the 'Style' video on her Instagram for the past week, giving us dreamy snippets of what was to come. The full video, which dropped this morning, realizes the pop star's potential to get dark.",
       tags : ['sport'],
-    }
+    },
 
     {
       id : '4',
@@ -210,18 +206,14 @@
 
   ];
 
-  var newsTag = ['media', 'sport', 'politics'];
-
-  //this function return article by id and i don't want write other function called getArticle() =)
-
-  //TODO Edit this method
+  let newsTag = ['media', 'sport', 'politics'];
 
   articles.getArticles = function (firstIndex, lastIndex, filter, tags) {
 
     let news = [];
     let index = 0;
     let last = lastIndex + firstIndex;
-    let error = 'incorrect input info'
+    let error = 'incorrect input info';
 
     if (firstIndex < 0 || lastIndex < 0) return error;
     if (firstIndex >= articles.length || lastIndex > articles.length) return error;
@@ -326,9 +318,9 @@
     if (article == undefined) check = false;
     else {
 
-      var articleProperties = Object.keys(article);
-      var properties = ['id', 'title', 'summary', 'createdAt', 'author', 'content', 'tags'];
-      var propertyTypes = ['String', 'String', 'String', 'Date', 'String', 'String', 'Array'];
+      let articleProperties = Object.keys(article);
+      let properties = ['id', 'title', 'summary', 'createdAt', 'author', 'content', 'tags'];
+      let propertyTypes = ['String', 'String', 'String', 'Date', 'String', 'String', 'Array'];
 
       if (articleProperties.length != properties.length) check = false;
       else {
@@ -474,7 +466,7 @@
     }
   };
 
-  var article = {
+  let article = {
     id : '1',
     title:'Test',
     summary: 'Test',
@@ -486,8 +478,7 @@
 
   console.log('******************\n');
   console.log('filtering by number');
-
-  var result = articles.getArticles(0, 3);
+  let result = articles.getArticles(0, 3);
   console.log('valid input information');
   console.log(result);
   console.log('not validate input information');
@@ -517,6 +508,7 @@
   console.log('add article');
   result = articles.addArticle(article);
   console.log(result);
+  console.log(articles);
 
   console.log('******************\n');
   console.log('edit article');
