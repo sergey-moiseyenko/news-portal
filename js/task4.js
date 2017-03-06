@@ -228,55 +228,75 @@
       return news;
 
     }else if (tags == undefined){
+      return articles.filterByConfig(firstIndex, last, filter);
 
-      let properties = Object.keys(filter);
+    }else if (filter == undefined) {
+      return articles.filterByTags(firstIndex, last, tags);
 
-      for (let i = firstIndex; i < last; i++) {
+    }else {
+      let news = articles.filterByConfig(firstIndex, last, filter);
+      return articles.filterByTags(firstIndex, last, tags, news);
+    };
+  };
 
-        let check = true;
+  articles.filterByConfig = function (firstIndex, last, filter) {
 
-        for (let j = 0; j < properties.length; j++) {
-          let name = properties[j];
+    let index = 0;
+    let news = [];
 
-          if (this[i][name].toString() != filter[name].toString()) {
-            check = false;
-          }
+    let properties = Object.keys(filter);
+
+    for (let i = firstIndex; i < last; i++) {
+
+      let check = true;
+
+      for (let j = 0; j < properties.length; j++) {
+        let name = properties[j];
+
+        if (this[i][name].toString() != filter[name].toString()) {
+          check = false;
         }
-
-        if (check == true) news[index] = this[i];
-
-        index++;
       }
 
-      news = news.sort(function (object1, object2) {
-        return object1.createdAt - object2.createdAt;
-      });
+      if (check == true) news[index] = this[i];
+
+      index++;
+    }
+
+    news = news.sort(function (object1, object2) {
+      return object1.createdAt - object2.createdAt;
+    });
+
+    return news;
+  };
+
+  articles.filterByTags = function (firstIndex, last, tags, news) {
+
+    let content = [];
+    let index = 0;
+
+    if (tags.length == 0) {
+
+      for (let i = firstIndex; i < last - firstIndex; i++) {
+        content[i] = articles[i];
+      }
 
       return news;
+    }else {
 
-    }else if (filter == undefined){
-
-      if (tags.length == 0) {
-        let news = [];
-
-        for (let i = firstIndex; i < lastIndex; i++) {
-          news[i] = articles[i];
+      for (let i = 0; i < tags.length; i++) {
+        let index = -1;
+        for (let j = 0; j < newsTag.length; j++) {
+          if (tags[i] == newsTag[j]) index = i;
         }
-
-        return news;
-      }else {
-
-        for (let i = 0; i < tags.length; i++) {
-          let index = -1;
-          for (let j = 0; j < newsTag.length; j++) {
-            if (tags[i] == newsTag[j]) index = i;
-          }
-          if (index == -1) {
-            return undefined;
-          }
+        if (index == -1) {
+          return undefined;
         }
+      }
 
-        for(let k = firstIndex; k < last; k++) {
+      if (news == undefined) {
+
+        for (let k = firstIndex; k < last; k++) {
           index = 0;
           for (let i = 0; i < tags.length; i++) {
             for (let j = 0; j < articles[k].tags.length; j++) {
@@ -284,10 +304,24 @@
             }
           }
 
-          if (index == tags.length) news.push(articles[k]);
+          if (index == tags.length) content.push(articles[k]);
         }
 
-        return news;
+        return content;
+      }else {
+
+        for (let k = 0; k < news.length; k++) {
+          index = 0;
+          for (let i = 0; i < tags.length; i++) {
+            for (let j = 0; j < news[k].tags.length; j++) {
+              if (tags[i] == news[k].tags[j]) index++;
+            }
+          }
+
+          if (index == tags.length) content.push(news[k]);
+        }
+
+        return content;
       }
     }
   };
@@ -405,7 +439,7 @@
       let deleteIndex = -1;
 
       for(let i = 0; i < articles.length; i++) {
-        if (Number(articles[i]['id']) == Number(id)) deleteIndex = i;
+        if (articles[i]['id'] === id) deleteIndex = i;
       }
 
       if (deleteIndex != -1) {
@@ -551,5 +585,7 @@
   console.log('if you want to see ten article with tag : "tag name" and news-list consist only five news with this "tag name", filtering return only five article, else filtering return empty array');
   console.log(articles.getArticles(0, 3, undefined, ['politics', 'media']));
   console.log('******************\n');
+
+  console.log(articles.getArticles(0, 3, {'author' : 'Sergey Moiseyenko'}));
 
 }();
