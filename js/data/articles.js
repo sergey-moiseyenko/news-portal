@@ -4,7 +4,7 @@
 
   let articles = [
 
-    {
+    /*{
       id: '1',
       title: 'TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO',
       summary: "Taylor Swift's been teasing the 'Style' video on her Instagram for the past week, giving us dreamy snippets of what was to come. The full video, which dropped this morning, realizes the pop star's potential to get dark.",
@@ -203,6 +203,8 @@
       content: "Taylor Swift's been teasing the 'Style' video on her Instagram for the past week, giving us dreamy snippets of what was to come. The full video, which dropped this morning, realizes the pop star's potential to get dark.",
       tags: ['sport', 'media'],
     },
+
+    */
 
   ];
 

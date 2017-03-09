@@ -3,16 +3,23 @@
 <head>
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/reset.css" rel="stylesheet">
+    <script src="../../js/config.js"></script>
+    <script src="../../js/data/articles.js"></script>
+    <script src="../../js/article-service.js"></script>
+    <script src="../../js/view/article-list-item.view.js"></script>
+    <script src="../../js/view/article.view.js"></script>
+    <script src="../../js/dom-api.js"></script>
+    <script src="../../js/task5.js"></script>
 </head>
 <body>
-    <div class="main-page">
+    <div class="main-page" id="main-page-id">
         <div class = "layout-heading">
             <div class="logo">
                 <img src="../images/logo.png"/>
             </div>
             <div class="sign-in-out-cell">
                 <label class="user-name">Sergey</label>
-                <input type="button" class="sign-in-button" value="sing out"/>
+                <input type="button" class="sign-in-button" value="sing out" onclick="window.domService.usersConfig(value)"/>
             </div>
             <div class="main-title clear">
                 <div>NEWS PORTAL</div>
@@ -23,7 +30,7 @@
                 <div class="filtration-frame">
                     <div class="field">
                         <label for="input-tags" class="label-text">Input tags</label>
-                        <input type="text" id="input-tags" class="input-text"/>
+                        <input type="text" id="input-tags" class="input-text" placeholder="Tags"/>
                         <div class="clear"></div>
                         <div class="select-tags">
                             <select>
@@ -40,11 +47,11 @@
                     <div class="clear"></div>
                     <div class="field">
                         <label for="input-author" class="label-text">Input Author</label>
-                        <input type="text" id="input-author" class="input-text"/>
+                        <input type="text" id="input-author" class="input-text" placeholder="Author"/>
                     </div>
                     <div class="field">
                         <label for="input-date" class="label-text">Input Date</label>
-                        <input type="text" id="input-date" class="input-text"/>
+                        <input type="text" id="input-date" class="input-text" placeholder="Date"/>
                     </div>
 
                     <div class="filtration-button">
@@ -61,397 +68,45 @@
             </div>
         </div>
 
-        <div class="content">
-            <div class="news-list">
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em></div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
+        <div class="clear"></div>
 
-                    <div class="clear"></div>
+        <div class="content" id="content-id">
+            <div class="news-list" id="news-list-id"></div>
+        </div>
 
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
+        <div class="clear"></div>
 
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"><em><a>Media</a></em></div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/Taylor-News.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Media</a></em> </div>
-                    <div class="news-description">
-                        Taylor Swift's been teasing the "Style" video on her Instagram for the past week,
-                        giving us dreamy snippets of what was to come. The full video, which dropped this morning,
-                        realizes the pop star's potential to get dark.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>WATCH THIS MMA FIGHTER TRY A MID-FIGHT DANCE BREAK AND GET KNOCKED THE HELL OUT</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/MMA-news.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Sport</a></em> </div>
-                    <div class="news-description">
-                        Cody Garbrandt isn't a massive name in MMA like Conor McGregor. However,
-                        in UFC 207 Garbrandt made a splash when in round four he literally took a hilarious
-                        dance break before soundly defeating opponent Dominick Cruz. It was a memorable move worthy of
-                        McGregor and obviously recently inspired British Challenge Mixed Martial Artist Joe Harding to do the same.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
-                <div class="news">
-                    <div class="news-title">
-                        <strong>WATCH THIS MMA FIGHTER TRY A MID-FIGHT DANCE BREAK AND GET KNOCKED THE HELL OUT</strong>
-                    </div>
-                    <div class="news-photo">
-                        <img src="../images/MMA-news.jpg" />
-                    </div>
-                    <div class="news-tag"> <em><a>Sport</a></em> </div>
-                    <div class="news-description">
-                        Cody Garbrandt isn't a massive name in MMA like Conor McGregor. However,
-                        in UFC 207 Garbrandt made a splash when in round four he literally took a hilarious
-                        dance break before soundly defeating opponent Dominick Cruz. It was a memorable move worthy of
-                        McGregor and obviously recently inspired British Challenge Mixed Martial Artist Joe Harding to do the same.
-                    </div>
-                    <div class="news-author">
-                        <a class="href-news-author"><b>BY SERGEY MOISEYENKO</b></a>
-                    </div>
-                    <div class="news-date">
-                        <span>2 HOURS AGO</span>
-                    </div>
-                    <div class="clear"></div>
-
-                    <div class="edit-news-button">
-                        <input type="button" value="edit"/>
-                    </div>
-
-                    <div class="delete-news-button">
-                        <input type="button" value="delete"/>
-                    </div>
-
-                </div>
-
+        <div class="user-commands">
+            <div class="add-news-button">
+                <input type="button" value="add news"/>
             </div>
-
             <div class="clear"></div>
-
-            <div class="user-commands">
-                <div class="add-news-button">
-                    <input type="button" value="add news"/>
-                </div>
-                <div class="clear"></div>
-                <div class="load-more-button">
-                    <input type="button" value="load more"/>
-                </div>
+            <div class="load-more-button">
+                <input type="button" value="load more"/>
             </div>
+        </div>
+
+            <!--<script>
+                let buttons = document.querySelectorAll("div.delete-news-button");
+                console.log(buttons);
+
+                for(let i = 0; i < buttons.length; i++) {
+                  buttons[i].addEventListener("click", window.domService.deleteNews);
+                }
+
+            </script>
+
+            <script>
+                let news = document.querySelectorAll("div.news-title");
+                for (let i = 0; i < news.length; i++) {
+                  news[i].addEventListener("click", window.domService.showNews);
+                }
+
+                console.log(news);
+
+            </script>
+            -->
+
         </div>
 
         <div class="footer">
