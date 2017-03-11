@@ -123,5 +123,4 @@
   }
 
   window.domService = domService;
-
 }(window.articleService);

@@ -1,8 +1,13 @@
 ;!function () {
 
   window.detailArticleView = (article) => {
+    let tags = "";
+    article.tags.forEach((elem) => {
+      tags += "<em><a>" + elem + "</a></em> ";
+    });
+
     let view = "<div class = \"detail-news\">" +
-      "<div class=\"detail-news-tag\"><em><a>" + article.tags + "</a></em></div>" +
+      "<div class=\"detail-news-tag\"><em><a>" + tags + "</a></em></div>" +
       "<div class=\"clear\"></div>" +
       "<div class=\"detail-news-title\">" +
       "<strong>" + article.title + "</strong>" +
