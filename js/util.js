@@ -1,16 +1,17 @@
-;!function () {
+;!function (config) {
   'use strict';
 
   let util = {};
 
-  util.skipNumberValid = (skip = 0, length = 0) => {
-    if (skip < 0) return 0;
+  util.skipNumberValid = (skip = config.SKIP_DEFAULTS, length = 0) => {
+    if (skip < 0) return config.SKIP_DEFAULTS;
     return (skip > length) ? length : skip;
   };
 
-  util.topNumberValid = (top = 10) => {
-    if (top < 0) return 10;
+  util.topNumberValid = (top = config.TOP_DEFAULTS) => {
+    if (top < 0) return config.TOP_DEFAULTS;
+    return top;
   };
 
   window.util = util;
-}();
+}(window.CONFIG);

@@ -75,7 +75,7 @@
     return true;
   };
 
-  articleService.getArticles = (skip = 0, top = 10, filter = {}) => {
+  articleService.getArticles = (skip, top, filter = {}) => {
     let filterTags = filter.tags || [];
     delete filter.tags;
     let filterKeys = Object.keys(filter);

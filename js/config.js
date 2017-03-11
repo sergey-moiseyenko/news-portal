@@ -2,6 +2,8 @@
 
   const CONFIG = {
     TAGS: ['sport', 'media', 'politics'],
+    TOP_DEFAULTS: 10,
+    SKIP_DEFAULTS: 0,
     VALIDATION_SCHEMA: {
       ARTICLE: {
         ID: {
