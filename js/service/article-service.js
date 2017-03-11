@@ -1,4 +1,4 @@
-;!function (articles, config) {
+;!function (articles, config, util) {
 
   'use strict';
 
@@ -68,30 +68,27 @@
   };
 
   articleService.removeTag = (tagName, article) => {
-    if (!tagName || !article|| !article.tags) return false;
+    if (!tagName || !article || !article.tags) return false;
     let index = article.tags.indexOf(tagName);
     if (index === -1) return false;
     article.tags.splice(index, 1);
     return true;
   };
 
-  articleService.getArticles = (firstIndex, lastIndex, filter) => {
-    firstIndex = firstIndex || 0;
-    lastIndex = lastIndex || 0;
-    if (lastIndex < 0 || firstIndex < 0) return [];
-    if (lastIndex > articles.length || firstIndex > articles.length) return [];
-    let count = ((firstIndex + lastIndex) > articles.length)? articles.length: firstIndex + lastIndex;
-    let news = articles.slice(firstIndex, count);
-    if (!filter) return news;
-    let filterProp = Object.keys(filter);
-    filterProp.splice(filterProp.indexOf('tags'), 1);
-    news = articles.filter(element => filterProp.every(value => filter[value] === element[value]));
-    if (!filter.tags) return news;
-    news = news.filter( element => filter.tags.every( value => !(element.tags.indexOf(value) === -1)));
-    lastIndex = (lastIndex > news.length)? news.length : lastIndex + firstIndex;
-    news = news.slice(firstIndex, lastIndex);
-    return news;
+  articleService.getArticles = (skip = 0, top = 10, filter = {}) => {
+    let filterTags = filter.tags || [];
+    delete filter.tags;
+    let filterKeys = Object.keys(filter);
+    let filteredArticles = articles.filter(article => {
+      if(!filterTags.every(tag => article.tags.includes(tag))) return false;
+      return filterKeys.every(filterKey => filter[filterKey] === article[filterKey]);
+    });
+
+    skip = util.skipNumberValid(skip, filteredArticles.length);
+    top = util.topNumberValid(top);
+
+    return filteredArticles.slice(skip, skip + top);
   };
 
   window.articleService = articleService;
-}(window.articles, window.CONFIG);
+}(window.articles, window.CONFIG, window.util);
