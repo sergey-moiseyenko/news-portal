@@ -16,18 +16,15 @@
   }
 
   articleService.isArticleValid = article => {
-    if (article == undefined) return false;
+    if (!article) return false;
     const props = config.VALIDATION_SCHEMA.ARTICLE.all();
     return props.every(p => article.hasOwnProperty(p.key) && classOf(article[p.key]) === p.type);
   };
 
   articleService.addArticle = article => {
-
-    let result = articleService.isArticleValid(article);
-    if (result != false) {
-      articles.push(article);
-    }
-    return result;
+    if (!articleService.isArticleValid(article)) return;
+    articles.push(article);
+    return article;
   };
 
   articleService.editArticle = (id, article) => {
@@ -54,24 +51,24 @@
   };
 
   articleService.removeArticle = (id) => {
-    if (id == undefined) return false;
+    if (!id) return;
     let article = articleService.getArticle(id);
-    if (!article) return false;
+    if (!article) return;
     let index = articles.indexOf(article);
     articles.splice(index, 1);
-    return true;
+    return article;
   };
 
   articleService.addTag = (tagName, article) => {
-    if (tagName == undefined || article == undefined) return false;
-    if (!newsTags.indexOf(tagName)) return false;
-    if (!article.tags.indexOf(tagName)) return false;
+    if (!tagName || !article) return false;
+    if (newsTags.indexOf(tagName) === -1) return false;
+    if (article.tags.indexOf(tagName) != -1) return false;
     article.tags.push(tagName);
     return true;
   };
 
   articleService.removeTag = (tagName, article) => {
-    if (tagName == undefined || article == undefined || article.tags == undefined) return false;
+    if (!tagName || !article|| !article.tags) return false;
     let index = article.tags.indexOf(tagName);
     if (index === -1) return false;
     article.tags.splice(index, 1);
@@ -81,37 +78,20 @@
   articleService.getArticles = (firstIndex, lastIndex, filter) => {
     firstIndex = firstIndex || 0;
     lastIndex = lastIndex || 0;
-    if (lastIndex < 0 || firstIndex < 0) return false;
-    if (lastIndex > articles.length || firstIndex > articles.length) return false;
-    let news = [];
-
-    if (filter != undefined) {
-      let properties = Object.keys(filter);
-      for (let i = firstIndex; i < firstIndex + lastIndex; i++) {
-        let check = 0;
-        for (let j = 0; j < properties.length; j++) {
-          let propertyName = properties[j];
-          if (propertyName === 'tags') {
-            let tags = filter.tags;
-            let index = 0;
-            for (let k = 0; k < tags.length; k++) {
-              if (articles[i].tags.indexOf(tags[k]) != -1) index++;
-            }
-            if (index === tags.length) check++;
-          }
-          if (articles[i][propertyName] === filter[propertyName]) check++;
-        }
-        if (check == properties.length) news.push(articles[i]);
-      }
-      return news;
-    }
-
-    for (let i = firstIndex; i < lastIndex + firstIndex; i++) {
-      news.push(articles[i]);
-    }
+    if (lastIndex < 0 || firstIndex < 0) return [];
+    if (lastIndex > articles.length || firstIndex > articles.length) return [];
+    let count = ((firstIndex + lastIndex) > articles.length)? articles.length: firstIndex + lastIndex;
+    let news = articles.slice(firstIndex, count);
+    if (!filter) return news;
+    let filterProp = Object.keys(filter);
+    filterProp.splice(filterProp.indexOf('tags'), 1);
+    news = articles.filter(element => filterProp.every(value => filter[value] === element[value]));
+    if (!filter.tags) return news;
+    news = news.filter( element => filter.tags.every( value => !(element.tags.indexOf(value) === -1)));
+    lastIndex = (lastIndex > news.length)? news.length : lastIndex + firstIndex;
+    news = news.slice(firstIndex, lastIndex);
     return news;
   };
 
   window.articleService = articleService;
-
 }(window.articles, window.CONFIG);

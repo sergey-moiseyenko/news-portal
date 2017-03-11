@@ -5,7 +5,7 @@
     <link href="../css/reset.css" rel="stylesheet">
     <script src="../../js/config.js"></script>
     <script src="../../js/data/articles.js"></script>
-    <script src="../../js/article-service.js"></script>
+    <script src="../../js/service/article-service.js"></script>
     <script src="../../js/view/article-list-item.view.js"></script>
     <script src="../../js/view/article.view.js"></script>
     <script src="../../js/dom-api.js"></script>
@@ -19,7 +19,7 @@
             </div>
             <div class="sign-in-out-cell">
                 <label class="user-name">Sergey</label>
-                <input type="button" class="sign-in-button" value="sing out" onclick="window.domService.usersConfig(value)"/>
+                <input type="button" class="sign-in-button" value="sign out" onclick="window.domService.usersConfig(value)"/>
             </div>
             <div class="main-title clear">
                 <div>NEWS PORTAL</div>
@@ -77,7 +77,7 @@
         <div class="clear"></div>
 
         <div class="user-commands">
-            <div class="add-news-button">
+            <div class="add-news-button article-expanded">
                 <input type="button" value="add news"/>
             </div>
             <div class="clear"></div>
@@ -85,30 +85,7 @@
                 <input type="button" value="load more"/>
             </div>
         </div>
-
-            <!--<script>
-                let buttons = document.querySelectorAll("div.delete-news-button");
-                console.log(buttons);
-
-                for(let i = 0; i < buttons.length; i++) {
-                  buttons[i].addEventListener("click", window.domService.deleteNews);
-                }
-
-            </script>
-
-            <script>
-                let news = document.querySelectorAll("div.news-title");
-                for (let i = 0; i < news.length; i++) {
-                  news[i].addEventListener("click", window.domService.showNews);
-                }
-
-                console.log(news);
-
-            </script>
-            -->
-
-        </div>
-
+    </div>
         <div class="footer">
             <div class="footer-cell">
                 <div class="creator-information">
@@ -122,4 +99,3 @@
     </div>
 </body>
 </html>
-

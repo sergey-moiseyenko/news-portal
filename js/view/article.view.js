@@ -21,11 +21,9 @@
       "<div class=\"detail-news-photo\">" +
       "</div>" +
       "<div class=\"clear\"></div>" +
-      "<div class=\"detail-news-content\">" + article.content +"</div>" +
+      "<div class=\"detail-news-content\">" + article.content + "</div>" +
       "<div class=\"clear\"></div>" +
       "</div>";
     return view;
   };
 }();
-
-//TODO : add-news button, css-classes, tags, refactoring code

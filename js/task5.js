@@ -1,8 +1,15 @@
+//Use this file to work with dom from console
 //Please, open console in your browser and on window.test object call methods
+//You can change params in domService and test objects functions;
+//Also u don't need call userConfig method from console, u can just click on sign-in/sign-out element
+//You can delete and edit news only in news-list mode, in show-detail mode you can't do this, cause this mode doesn't contain delete and edit buttons in my proto
+//To remove and add tags just call this method on window.test object; You can change params these methods in this file
+//!!! Only sign-in/sign-out elements have own listeners
 
 ;!function (domService, articleService) {
 
   let test = {};
+
   let article = {
     id: '0',
     title: 'TAYLOR SWIFT GETS SULTRY IN THE "STYLE" VIDEO',
@@ -13,13 +20,13 @@
     tags: ['sport', 'media'],
   };
 
-  test.add = () => domService.addNews(article);
-  test.delete = () => domService.deleteNews('0');
-  test.edit = () => domService.editNews('0');
-  test.showArticle = () => domService.showNews(articleService.getArticle('0'));
-  test.usersConfig = () => domService.usersConfig('sign out');
-  test.removeTag = () => domService.removeTag('media', articleService.getArticle('0'));
-  test.addTag = () => domService.addTag('media', articleService.getArticle('0'));
+  test.add = (article) => domService.addNews(article);
+  test.delete = (id) => domService.deleteNews(id);
+  test.edit = (id) => domService.editNews(id);
+  test.showArticle = (id) => domService.showNews(articleService.getArticle(id));
+  test.usersConfig = (value) => domService.usersConfig(value);
+  test.removeTag = (id, tagName) => domService.removeTag(tagName, articleService.getArticle(id));
+  test.addTag = (id, tagName) => domService.addTag(tagName, articleService.getArticle(id));
 
   window.test = test;
 }(window.domService, window.articleService);

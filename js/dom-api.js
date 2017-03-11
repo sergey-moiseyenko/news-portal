@@ -1,6 +1,7 @@
 ;!function (articleService) {
-
   'use strict';
+
+  const articleView = window.articleView;
 
   let domService = {};
 
@@ -14,35 +15,35 @@
   };
 
   domService.addNews = article => {
-    if(!window.articleService.isArticleValid(article)) return false;
-    articleService.addArticle(article);
-    let articleView = window.articleView.view(article);
+    article = articleService.addArticle(article);
+    if (!article) return;
+
+    let view = articleView(article);
     let news = document.createElement('div');
     news.className = 'news';
     news.id = article.id;
-    news.innerHTML = articleView;
+    news.innerHTML = view;
     let newsList = document.querySelector('div.news-list');
     newsList.insertBefore(news, newsList.firstChild);
-    return true;
   };
 
   domService.deleteNews = id => {
+    let article = articleService.removeArticle(id);
+    if (!article) return;
 
-    if (!articleService.removeArticle(id)) return false;
-    let article = document.getElementById(id);
-    if (article) {
-      let newsListDiv = document.getElementById('news-list-id');
-      newsListDiv.removeChild(article);
-    }
-    return true;
+    article = document.getElementById(id);
+    if (!article) return;
+
+    let newsListDiv = document.getElementById('news-list-id');
+    newsListDiv.removeChild(article);
   };
 
   domService.editNews = id => {
     let article = document.getElementById(id);
     if (!article) return false;
-    if (!articleService.editArticle(id, {title:'edit title'})) return false;
+    if (!articleService.editArticle(id, {title: 'edit title'})) return false;
     let editArticle = articleService.getArticle(id);
-    let editElement = getDomElement(window.articleView.view(editArticle), editArticle);
+    let editElement = getDomElement(window.articleView(editArticle), editArticle);
     let currentElem = document.getElementById(id);
     let newsList = document.querySelector('div.news-list');
     newsList.insertBefore(editElement, currentElem);
@@ -58,59 +59,68 @@
     return element;
   }
 
-  //press sing in or sing out button to check
-
   domService.usersConfig = (value) => {
-    let singButton = document.querySelector('input.sign-in-button');
+    let signButton = document.querySelector('input.sign-in-button');
     let label = document.querySelector('label.user-name');
+    let addButton = document.querySelector('div.add-news-button');
 
-    if (value === 'sing in') {
+    if (value === 'sign in') {
       label.innerHTML = 'Sergey';
-      singButton.value = 'sing out';
+      signButton.value = 'sign out';
       let editButtons = document.querySelectorAll('div.edit-news-button');
       let deleteButtons = document.querySelectorAll('div.delete-news-button');
       editButtons.forEach(function (elem) {
-        elem.classList.remove('article-expanded');
-        elem.classList.add('article-collapsed');
+        elem.classList.remove('article-collapsed');
+        elem.classList.add('article-expanded');
       });
       deleteButtons.forEach(function (elem) {
-        elem.classList.remove('article-expanded');
-        elem.classList.add('article-collapsed');
+        elem.classList.remove('article-collapsed');
+        elem.classList.add('article-expanded');
       });
+      addButton.classList.remove('article-collapsed');
+      addButton.classList.add('article-expanded');
       return;
     }
 
     label.innerHTML = '';
-    singButton.value = 'sing in';
+    signButton.value = 'sign in';
     let editButtons = document.querySelectorAll('div.edit-news-button');
     let deleteButtons = document.querySelectorAll('div.delete-news-button');
     editButtons.forEach(function (elem) {
-      elem.classList.remove('article-collapsed');
-      elem.classList.add('article-expanded');
+      elem.classList.remove('article-expanded');
+      elem.classList.add('article-collapsed');
     });
     deleteButtons.forEach(function (elem) {
-      elem.classList.remove('article-collapsed');
-      elem.classList.add('article-expanded');
+      elem.classList.remove('article-expanded');
+      elem.classList.add('article-collapsed');
     });
+    addButton.classList.remove('article-expanded');
+    addButton.classList.add('article-collapsed');
   };
 
   domService.removeTag = (tagName, article) => {
-    if(!articleService.removeTag(tagName, article)) return false;
+    if (!articleService.removeTag(tagName, article)) return false;
     let newsElement = document.getElementById(article.id);
     if (!newsElement) return false;
-    let tagElement = newsElement.querySelector('div.news-tag');
-    tagElement.innerHTML = "<div class=\"news-tag\"><em><a>" + article.tags + "</a></em></div>";
-    return true;
+    return applyingTagChanges(newsElement, article);
   };
 
   domService.addTag = (tagName, article) => {
-    if(!articleService.addTag(tagName, article)) return false;
+    if (!articleService.addTag(tagName, article)) return false;
     let newsElement = document.getElementById(article.id);
-    if(!newsElement) return false;
-    let tagElement = newsElement.querySelector('div.news-tag');
-    tagElement.innerHTML = "<div class=\"news-tag\"><em><a>" + article.tags + "</a></em></div>";
-    return true;
+    if (!newsElement) return false;
+    return applyingTagChanges(newsElement, article);
   };
+
+  function applyingTagChanges(newsElement, article) {
+    let tagElement = newsElement.querySelector('div.news-tag');
+    let tags = "";
+    article.tags.forEach((elem) => {
+      tags += "<em><a>" + elem + "</a></em> ";
+    });
+    tagElement.innerHTML = tags;
+    return true;
+  }
 
   window.domService = domService;
 

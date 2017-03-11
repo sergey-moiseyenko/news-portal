@@ -310,7 +310,6 @@
 }
 
 .user-commands .add-news-button {
-    display: inline-block;
     padding-bottom: 10px;
     border-bottom: 2px solid grey;
 }
@@ -318,6 +317,7 @@
 .user-commands .load-more-button {
     display: inline-block;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .add-news-button input{
@@ -367,7 +367,7 @@
 }
 
 .article-expanded {
-    display: block;
+    display: inline-block;
 }
 
 /* detail news*/
