@@ -86,8 +86,10 @@
 
     skip = util.skipNumberValid(skip, filteredArticles.length);
     top = util.topNumberValid(top);
+    filteredArticles = filteredArticles.slice(skip, skip + top);
+    filteredArticles.sort((article1, article2) => article1.createdAt - article2.createdAt);
 
-    return filteredArticles.slice(skip, skip + top);
+    return filteredArticles;
   };
 
   window.articleService = articleService;
