@@ -9,9 +9,6 @@
     let detailArticle = window.detailArticleView(article);
     let content = document.getElementById('content-id');
     content.innerHTML = detailArticle;
-    let element = document.querySelector('div.user-commands');
-    let pageElement = document.querySelector('div.main-page');
-    pageElement.removeChild(element);
   };
 
   domService.addNews = article => {
@@ -30,7 +27,6 @@
   domService.deleteNews = id => {
     let article = articleService.removeArticle(id);
     if (!article) return;
-
     article = document.getElementById(id);
     if (!article) return;
 
@@ -59,12 +55,18 @@
     return element;
   }
 
+  //refactoring this method
+
   domService.usersConfig = (value) => {
     let signButton = document.querySelector('input.sign-in-button');
     let label = document.querySelector('label.user-name');
     let addButton = document.querySelector('div.add-news-button');
 
     if (value === 'sign in') {
+
+      let frame = document.querySelector('form.sing-in-frame');
+      frame.classList.remove('collapsed');
+      frame.classList.add('expanded');
       label.innerHTML = 'Sergey';
       signButton.value = 'sign out';
       let editButtons = document.querySelectorAll('div.edit-news-button');

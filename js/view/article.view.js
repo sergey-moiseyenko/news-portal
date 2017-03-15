@@ -29,6 +29,7 @@
       "<div class=\"detail-news-content\">" + article.content + "</div>" +
       "<div class=\"clear\"></div>" +
       "</div>";
+
     return view;
   };
 }();
