@@ -28,6 +28,9 @@
       "<div class=\"clear\"></div>" +
       "<div class=\"detail-news-content\">" + article.content + "</div>" +
       "<div class=\"clear\"></div>" +
+      "<div class=\"back-button\">"+
+      "<input type=\"button\" value=\"back\" onclick='window.pageListener.backButtonListener(event)'/>"+
+      "</div>"+
       "</div>";
 
     return view;

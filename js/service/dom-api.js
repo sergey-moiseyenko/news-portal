@@ -14,14 +14,7 @@
   domService.addNews = article => {
     article = articleService.addArticle(article);
     if (!article) return;
-
-    let view = articleView(article);
-    let news = document.createElement('div');
-    news.className = 'news';
-    news.id = article.id;
-    news.innerHTML = view;
-    let newsList = document.querySelector('div.news-list');
-    newsList.insertBefore(news, newsList.firstChild);
+    domService.upToDate();
   };
 
   domService.deleteNews = id => {
@@ -34,16 +27,9 @@
     newsListDiv.removeChild(article);
   };
 
-  domService.editNews = id => {
-    let article = document.getElementById(id);
-    if (!article) return false;
-    if (!articleService.editArticle(id, {title: 'edit title'})) return false;
-    let editArticle = articleService.getArticle(id);
-    let editElement = getDomElement(window.articleView(editArticle), editArticle);
-    let currentElem = document.getElementById(id);
-    let newsList = document.querySelector('div.news-list');
-    newsList.insertBefore(editElement, currentElem);
-    newsList.removeChild(currentElem);
+  domService.editNews = (id, articleForEdit = undefined) => {
+    if (!articleService.editArticle(id, articleForEdit)) return false;
+    domService.upToDate();
     return true;
   };
 
@@ -57,47 +43,34 @@
 
   //refactoring this method
 
-  domService.usersConfig = (value) => {
-    let signButton = document.querySelector('input.sign-in-button');
-    let label = document.querySelector('label.user-name');
-    let addButton = document.querySelector('div.add-news-button');
+  domService.usersConfig = (newslist, value) => {
+    let deleteButtons = newslist.querySelectorAll('div.delete-news-button');
+    let editButtons= newslist.querySelectorAll('div.edit-news-button');
+    let addNewsButton = document.querySelector('div.add-news-button');
 
-    if (value === 'sign in') {
-
-      let frame = document.querySelector('form.sing-in-frame');
-      frame.classList.remove('collapsed');
-      frame.classList.add('expanded');
-      label.innerHTML = 'Sergey';
-      signButton.value = 'sign out';
-      let editButtons = document.querySelectorAll('div.edit-news-button');
-      let deleteButtons = document.querySelectorAll('div.delete-news-button');
-      editButtons.forEach(function (elem) {
-        elem.classList.remove('article-collapsed');
-        elem.classList.add('article-expanded');
+    if (value == 'sing in') {
+      deleteButtons.forEach(deleteButton => {
+        deleteButton.classList.add('article-collapsed');
       });
-      deleteButtons.forEach(function (elem) {
-        elem.classList.remove('article-collapsed');
-        elem.classList.add('article-expanded');
+      editButtons.forEach(editButton => {
+        editButton.classList.add('article-collapsed');
       });
-      addButton.classList.remove('article-collapsed');
-      addButton.classList.add('article-expanded');
+      if (!addNewsButton) return;
+      addNewsButton.classList.remove('article-expanded');
+      addNewsButton.classList.add('article-collapsed');
       return;
     }
 
-    label.innerHTML = '';
-    signButton.value = 'sign in';
-    let editButtons = document.querySelectorAll('div.edit-news-button');
-    let deleteButtons = document.querySelectorAll('div.delete-news-button');
-    editButtons.forEach(function (elem) {
-      elem.classList.remove('article-expanded');
-      elem.classList.add('article-collapsed');
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.classList.remove('article-collapsed');
     });
-    deleteButtons.forEach(function (elem) {
-      elem.classList.remove('article-expanded');
-      elem.classList.add('article-collapsed');
+    editButtons.forEach(editButton => {
+      editButton.classList.remove('article-collapsed');
     });
-    addButton.classList.remove('article-expanded');
-    addButton.classList.add('article-collapsed');
+
+    if (!addNewsButton) return;
+    addNewsButton.classList.remove('article-collapsed');
+    addNewsButton.classList.add('article-expanded');
   };
 
   domService.removeTag = (tagName, article) => {
@@ -123,6 +96,52 @@
     tagElement.innerHTML = tags;
     return true;
   }
+
+  domService.upToDate = () => {
+    let user = userService.getUser();
+    if (user) {
+      let singInCell = document.querySelector('div.sign-in-out-cell');
+      let label = singInCell.querySelector('label.user-name');
+      label.innerHTML = user.name;
+      let singInButton = singInCell.querySelector('input.sign-in-button');
+      singInButton.value = 'sing-out';
+    }
+
+    let content = document.querySelector('div.content');
+    content.innerHTML = views.contentView();
+    let newsList = content.querySelector('div.news-list');
+    if (!newsList) {
+      content.innerHTML = views.newsListView();
+      newsList = content.querySelector('div.news-list');
+    }
+
+    articles.forEach(article => {
+      let view = articleView(article);
+      let news = document.createElement('div');
+      news.className = 'news';
+      news.id = article.id;
+      news.innerHTML = view;
+      newsList.insertBefore(news, newsList.firstChild);
+    });
+
+    domService.usersConfig(newsList, document.querySelector('input.sign-in-button').value);
+  };
+
+  domService.upToDateAuthorization = (user) => {
+    let singInCell = document.getElementById('sing-in-out-cell-id');
+    let userName = document.createElement('label');
+    userName.className = 'user-name';
+    userName.innerHTML = user.name;
+    singInCell.removeChild(singInCell.getElementsByClassName('sing-in-frame')[0]);
+    let singInButton = document.createElement('input');
+    singInButton.className = 'sign-in-button';
+    singInButton.type = 'button';
+    singInButton.value = 'sing out';
+    singInButton.onclick = window.pageListener.logInOutFrame;
+    singInCell.appendChild(userName);
+    singInCell.appendChild(singInButton);
+    domService.usersConfig(document.querySelector('div.news-list'), singInButton.value);
+  };
 
   window.domService = domService;
 }(window.articleService);

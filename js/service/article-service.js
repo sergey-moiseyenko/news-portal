@@ -24,6 +24,7 @@
   articleService.addArticle = article => {
     if (!articleService.isArticleValid(article)) return;
     articles.push(article);
+    saveChanges(JSON.stringify(articles));
     return article;
   };
 
@@ -45,6 +46,7 @@
     if (articleService.isArticleValid(articleClone)) {
       articleService.removeArticle(id);
       articleService.addArticle(articleClone);
+      saveChanges(JSON.stringify(articles));
       return true;
     }
     return false;
@@ -56,6 +58,7 @@
     if (!article) return;
     let index = articles.indexOf(article);
     articles.splice(index, 1);
+    saveChanges(JSON.stringify(articles));
     return article;
   };
 
@@ -90,6 +93,10 @@
     filteredArticles.sort((article1, article2) => article1.createdAt - article2.createdAt);
 
     return filteredArticles;
+  };
+
+  function saveChanges(articles) {
+    localStorage.setItem('articles', articles);
   };
 
   window.articleService = articleService;

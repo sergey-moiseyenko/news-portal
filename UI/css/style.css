@@ -424,6 +424,17 @@
     border-top: 2px solid grey;
 }
 
+.detail-news .add-input {
+    margin-top: 10px;
+    float: right;
+}
+
+.detail-news .add-input input{
+    color: black;
+    background-color: white;
+    border: 1px solid grey;
+}
+
 /* authorization users form*/
 
 .sing-in-frame {
@@ -477,6 +488,8 @@
 /* add news mode(frame) */
 
 .add-news-frame {
+    width: 70%;
+    margin-left: 12%;
     overflow: auto;
     text-align: left;
 }
@@ -498,7 +511,7 @@
 
 .add-news-frame .add-input {
     margin-top: 10px;
-    margin-left: 5px;
+    float: right;
     color: black;
     background-color: white;
     border: 1px solid grey;
@@ -507,5 +520,56 @@
 /* back button(for reload page) */
 
 .back-button {
-
+    float: left;
+    color: black;
+    margin-top: 10px;
+    margin-left: 5px;
 }
+
+.back-button input{
+    color: black;
+    background-color: white;
+    border: 1px solid grey;
+}
+
+/* edit article view*/
+
+.edit-article-view {
+    width: 70%;
+    margin-left: 12%;
+    overflow: auto;
+    text-align: left;
+}
+
+.edit-article-view input{
+    border: none;
+    border-bottom: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+.edit-article-view .back-button input{
+    color: black;
+    background-color: white;
+    border: 1px solid grey;
+}
+
+.edit-article-view .content-input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid grey;
+    border-top: 2px solid grey;
+    margin-top: 10px;
+    height: 100px;
+}
+
+
+.edit-article-view .add-input input{
+    margin-top: 10px;
+    float: right;
+    color: black;
+    background-color: white;
+    border: 1px solid grey;
+}
+
+
+

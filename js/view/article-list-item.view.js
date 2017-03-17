@@ -22,10 +22,10 @@
       "<span>" + article.createdAt.toDateString() + "</span>" +
       "</div>" +
       "<div class=\"clear\"></div>" +
-      "<div class='edit-news-button' onclick='window.pageListener.editArticleListener(event)'>" +
+      "<div class='edit-news-button' onclick='window.pageListener.editArticleFrame(event)'>" +
       "<input type='button' value='edit'/>" +
       "</div>" +
-      "<div class='delete-news-button' onclick='window.pageListener.deleteArticleListener(event)'>" +
+      "<div class='delete-news-button' onclick='window.pageListener.deleteArticleInList(event)'>" +
       "<input type='button' value='delete'>" +
       "</div>" +
       "<div class=\"clear\"></div>";

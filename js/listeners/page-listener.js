@@ -1,31 +1,47 @@
 ;!function (states, views, domService, articleService) {
 
   let pageListener = {};
-  let backButton = '<div class="clear"></div>' +
-  '<input type="button" value="back"/>';
 
-  pageListener.logInFrameListener = (event) => {
+  //addEventListener('onload', domService.upToDate);
+
+  window.onload = domService.upToDate;
+
+  //backButton.onclick = () => {
+   // if (!states) return;
+    //let pageElement = states.shift();
+    //states.unshift(document.documentElement);
+   //document.documentElement.innerHTML = pageElement;
+  //};
+
+  pageListener.logInOutFrame = (event) => {
+
     let logInButton = document.querySelector('div.sign-in-out-cell');
-    states.unshift(document.documentElement);
-    logInButton.innerHTML = views.authorizationView();
+    if (event.target.value === 'sing in') {
+      logInButton.innerHTML = views.authorizationView();
+    }else {
+      let label = logInButton.querySelector('label.user-name');
+      label.innerHTML = "";
+      event.target.value = "sing in";
+      userService.removeUser();
+      domService.usersConfig(document.querySelector('div.news-list'), event.target.value);
+    }
   };
 
-  pageListener.addArticleListener = (event) => {
+  pageListener.addArticleFrame = (event) => {
     let content = document.querySelector('div.content');
-    states.unshift(document.documentElement);
+    states.unshift(content);
     content.innerHTML = views.addArticleView();
-
   };
 
-  pageListener.editArticleListener = (event) => {
+  pageListener.editArticleFrame = (event) => {
     let target = event.target;
-    while (target.className !== 'news') target = target.parentNode
+    while (target.className !== 'news') target = target.parentNode;
     let content = document.querySelector('div.content');
-    states.unshift(content.documentElement);
+    states.unshift(content);
     content.innerHTML = views.editArticleView(articleService.getArticle(target.id));
   };
 
-  pageListener.deleteArticleListener = (event) => {
+  pageListener.deleteArticleInList = (event) => {
     let target = event.target;
     while(target.className !== 'news') target = target.parentNode;
     domService.deleteNews(target.id);
@@ -35,8 +51,12 @@
     let target = event.target;
     while(target.className !== 'news') target = target.parentNode;
     let content = document.querySelector('div.content');
-    states.unshift(content.documentElement);
+    states.unshift(content);
     domService.showNews(articleService.getArticle(target.id));
+  };
+
+  pageListener.backButtonListener = (event) => {
+    domService.upToDate();
   };
 
   window.pageListener = pageListener;
