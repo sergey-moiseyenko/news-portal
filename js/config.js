@@ -1,6 +1,7 @@
 ;!function () {
 
   const CONFIG = {
+    ARTICLE_COUNT_ON_PAGE: 10,
     TAGS: ['sport', 'media', 'politics'],
     TOP_DEFAULTS: 10,
     SKIP_DEFAULTS: 0,

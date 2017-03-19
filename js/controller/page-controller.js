@@ -52,7 +52,7 @@
   };
 
   pageController.loadMorButtonListener = (event) => {
-
+    domService.loadArticles();
   };
 
   window.pageController = pageController;

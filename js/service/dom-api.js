@@ -1,9 +1,10 @@
-;!function (articleService, tagService) {
+;!function (articleService, tagService, config) {
   'use strict';
 
   const articleView = window.articleView;
   let domService = {};
-  let currentArticles = articleService.getData();
+  let countArticlesOnPage = config.ARTICLE_COUNT_ON_PAGE;
+  let currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
 
   domService.showNews = (article) => {
     let detailArticle = window.detailArticleView(article);
@@ -14,6 +15,7 @@
   domService.addNews = article => {
     article = articleService.addArticle(article);
     if (!article) return;
+    currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
     domService.setDataAfterLoad();
   };
 
@@ -25,10 +27,12 @@
 
     let newsListDiv = document.getElementById('news-list-id');
     newsListDiv.removeChild(article);
+    currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
   };
 
   domService.editNews = (id, articleForEdit = undefined) => {
     if (!articleService.editArticle(id, articleForEdit)) return false;
+    currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
     domService.setDataAfterLoad();
     return true;
   };
@@ -131,6 +135,7 @@
   };
 
   domService.upDateAfterFiltering = (articles) => {
+    countArticlesOnPage = 0;
     if (!articles) return;
     currentArticles = articles;
     domService.setDataAfterLoad();
@@ -157,8 +162,20 @@
   };
 
   domService.loadArticles = () => {
-    articleService.loadArticles();
+    let newsList = document.querySelector('div.news-list');
+    let articles = articleService.getArticles(countArticlesOnPage, config.ARTICLE_COUNT_ON_PAGE);
+    articles.forEach(article => {
+      let news = document.createElement('div');
+      news.className = 'news';
+      news.id = article.id;
+      news.innerHTML = articleView(article);
+      newsList.appendChild(news);
+    });
+
+    countArticlesOnPage = newsList.childNodes.length;
+    let signInButton = document.querySelector('input.sign-in-button');
+    domService.usersConfig(newsList, signInButton.value);
   };
 
   window.domService = domService;
-}(window.articleService, window.tagService);
+}(window.articleService, window.tagService, window.CONFIG);

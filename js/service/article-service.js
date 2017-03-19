@@ -100,9 +100,5 @@
     localStorage.setItem('articles', articles);
   };
 
-  articleService.getData = () => {
-    return articles;
-  };
-
   window.articleService = articleService;
 }(window.articles, window.CONFIG, window.util, window.articleTags, window.savedArticles);
