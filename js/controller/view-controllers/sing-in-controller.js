@@ -1,8 +1,8 @@
 ;!function (users, userService) {
 
-  let singInListener = {};
+  let singInController = {};
 
-  singInListener.singInButtonListener = (event) => {
+  singInController.singInButtonListener = (event) => {
 
     let user = {};
     let singInFrame = document.querySelector('form.sing-in-frame');
@@ -11,8 +11,8 @@
     user.password = singInFrame.querySelector('input.user-password-input').value;
 
     userService.addUser(user);
-    domService.upToDateAuthorization(user);
+    domService.upDateAfterAuthorization(user);
   };
 
-  window.singInListener = singInListener;
+  window.singInController = singInController;
 }(window.users, window.userService);

@@ -11,7 +11,7 @@
     "<label>Remember me</label>" +
     "<input type='checkbox' id='remember-me-id' checked/>" +
     "<div class='clear'></div>" +
-    "<input type='button' value='sing in' onclick='window.singInListener.singInButtonListener(event)'/>" +
+    "<input type='button' value='sing in' onclick='window.singInController.singInButtonListener(event)'/>" +
     "</form>";
 
     return view;

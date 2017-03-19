@@ -1,10 +1,10 @@
-;!function (states, views, domService, articleService) {
+;!function (views, domService, articleService) {
 
-  let pageListener = {};
+  let pageController = {};
 
-  window.onload = domService.upToDate;
+  window.onload = domService.setDataAfterLoad;
 
-  pageListener.logInOutFrame = (event) => {
+  pageController.logInOutFrame = (event) => {
 
     let logInButton = document.querySelector('div.sign-in-out-cell');
     if (event.target.value === 'sing in') {
@@ -18,41 +18,42 @@
     }
   };
 
-  pageListener.addArticleFrame = (event) => {
+  pageController.addArticleFrame = (event) => {
     let content = document.querySelector('div.content');
-    states.unshift(content);
     content.innerHTML = views.addArticleView();
   };
 
-  pageListener.editArticleFrame = (event) => {
+  pageController.editArticleFrame = (event) => {
     let target = event.target;
     while (target.className !== 'news') target = target.parentNode;
     let content = document.querySelector('div.content');
-    states.unshift(content);
     content.innerHTML = views.editArticleView(articleService.getArticle(target.id));
   };
 
-  pageListener.deleteArticleInList = (event) => {
+  pageController.deleteArticle = (event) => {
     let target = event.target;
     while(target.className !== 'news') target = target.parentNode;
     domService.deleteNews(target.id);
   };
 
-  pageListener.showArticle = (event) => {
+  pageController.showArticle = (event) => {
     let target = event.target;
     while(target.className !== 'news') target = target.parentNode;
     let content = document.querySelector('div.content');
-    states.unshift(content);
     domService.showNews(articleService.getArticle(target.id));
   };
 
-  pageListener.backButtonListener = (event) => {
-    domService.upToDate();
+  pageController.backButtonListener = (event) => {
+    domService.setDataAfterLoad();
   };
 
-  pageListener.filterMenuButton = (event) => {
+  pageController.filterMenuButton = (event) => {
     domService.showFilterMenu();
   };
 
-  window.pageListener = pageListener;
-}(window.states, window.views, window.domService, window.articleService);
+  pageController.loadMorButtonListener = (event) => {
+
+  };
+
+  window.pageController = pageController;
+}(window.views, window.domService, window.articleService);

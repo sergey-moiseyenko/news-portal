@@ -1,10 +1,8 @@
-;!function (articleService, articleTagsService) {
+;!function (articleService, tagService) {
   'use strict';
 
   const articleView = window.articleView;
-
   let domService = {};
-
   let currentArticles = articleService.getData();
 
   domService.showNews = (article) => {
@@ -16,7 +14,7 @@
   domService.addNews = article => {
     article = articleService.addArticle(article);
     if (!article) return;
-    domService.upToDate();
+    domService.setDataAfterLoad();
   };
 
   domService.deleteNews = id => {
@@ -31,23 +29,15 @@
 
   domService.editNews = (id, articleForEdit = undefined) => {
     if (!articleService.editArticle(id, articleForEdit)) return false;
-    domService.upToDate();
+    domService.setDataAfterLoad();
     return true;
   };
 
-  function getDomElement(articleView, article) {
-    let element = document.createElement('div');
-    element.className = 'news';
-    element.id = article.id;
-    element.innerHTML = articleView;
-    return element;
-  }
-
   //refactoring this method
 
-  domService.usersConfig = (newslist, value) => {
-    let deleteButtons = newslist.querySelectorAll('div.delete-news-button');
-    let editButtons= newslist.querySelectorAll('div.edit-news-button');
+  domService.usersConfig = (newsList, value) => {
+    let deleteButtons = newsList.querySelectorAll('div.delete-news-button');
+    let editButtons= newsList.querySelectorAll('div.edit-news-button');
     let addNewsButton = document.querySelector('div.add-news-button');
 
     if (value == 'sing in') {
@@ -99,56 +89,51 @@
     return true;
   }
 
-  domService.upToDate = () => {
-    let user = userService.getUser();
-    if (user) {
-      let singInCell = document.querySelector('div.sign-in-out-cell');
-      let label = singInCell.querySelector('label.user-name');
-      label.innerHTML = user.name;
-      let singInButton = singInCell.querySelector('input.sign-in-button');
-      singInButton.value = 'sing-out';
-    }
-
+  domService.setDataAfterLoad = () => {
+    domService.setUser(userService.getUser());
     let content = document.querySelector('div.content');
-    content.innerHTML = views.contentView();
+    domService.setContent(content);
+    domService.usersConfig(content.querySelector('div.news-list'), document.querySelector('input.sign-in-button').value);
+  };
+
+  domService.setUser = (user) => {
+    if (!user) return;
+    let singInCell = document.querySelector('div.sign-in-out-cell');
+    let label = singInCell.querySelector('label.user-name');
+    label.innerHTML = user.name;
+    let singInButton = singInCell.querySelector('input.sign-in-button');
+    singInButton.value = 'sing-out';
+  };
+
+  domService.setContent = (content) => {
+    content.innerHTML = newsListView();
     let newsList = content.querySelector('div.news-list');
-    if (!newsList) {
-      content.innerHTML = views.newsListView();
-      newsList = content.querySelector('div.news-list');
-    }
+    let userCommands = document.createElement('div');
+    userCommands.className = 'user-commands';
+    userCommands.innerHTML = userCommandsView();
+    content.appendChild(userCommands);
 
     currentArticles.forEach(article => {
-      let view = articleView(article);
       let news = document.createElement('div');
       news.className = 'news';
       news.id = article.id;
-      news.innerHTML = view;
+      news.innerHTML = articleView(article);
       newsList.insertBefore(news, newsList.firstChild);
     });
-
-    domService.usersConfig(newsList, document.querySelector('input.sign-in-button').value);
   };
 
-  domService.upToDateAuthorization = (user) => {
+  domService.upDateAfterAuthorization = (user) => {
+    if (!user) return;
     let singInCell = document.getElementById('sing-in-out-cell-id');
-    let userName = document.createElement('label');
-    userName.className = 'user-name';
-    userName.innerHTML = user.name;
-    singInCell.removeChild(singInCell.getElementsByClassName('sing-in-frame')[0]);
-    let singInButton = document.createElement('input');
-    singInButton.className = 'sign-in-button';
-    singInButton.type = 'button';
-    singInButton.value = 'sing out';
-    singInButton.onclick = window.pageListener.logInOutFrame;
-    singInCell.appendChild(userName);
-    singInCell.appendChild(singInButton);
-    domService.usersConfig(document.querySelector('div.news-list'), singInButton.value);
+    singInCell.innerHTML = signInOutView(user);
+    let newsList = document.querySelector('div.news-list');
+    if (newsList) domService.usersConfig(newsList, 'sing-out');
   };
 
-  domService.upToDateAfterFiltering = (articles) => {
+  domService.upDateAfterFiltering = (articles) => {
     if (!articles) return;
     currentArticles = articles;
-    domService.upToDate();
+    domService.setDataAfterLoad();
   };
 
   domService.showFilterMenu = () => {
@@ -169,6 +154,10 @@
     let filterMenuButton = document.querySelector('div.drop-down-menu');
     let filterForm = filterMenuButton.querySelector('div');
     filterMenuButton.removeChild(filterForm);
+  };
+
+  domService.loadArticles = () => {
+    articleService.loadArticles();
   };
 
   window.domService = domService;

@@ -28,10 +28,10 @@
       '<textarea class="content-input">' + article.content + '</textarea>' +
       '<div class="clear"></div>' +
       '<div class="add-input">'+
-      '<input type="button" value="add" onclick="window.editViewListener.addButtonListener(event)"/>' +
+      '<input type="button" value="add" onclick="window.editViewController.addTagListener(event)"/>' +
       '</div>'+
       '<div class="back-button">'+
-      '<input type="button" value="back" onclick="window.pageListener.backButtonListener(event)"/>'+
+      '<input type="button" value="back" onclick="window.pageController.backButtonListener(event)"/>'+
       '</div>' +
       '</div>';
 

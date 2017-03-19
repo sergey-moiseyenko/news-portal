@@ -1,8 +1,8 @@
 ;!function (articleService, tagService) {
 
-  let filterFrameListener = {};
+  let filterFrameController = {};
 
-  filterFrameListener.searchItemListener = (event) => {
+  filterFrameController.searchItemListener = (event) => {
 
     let filterFrame = document.querySelector('div.filtration-frame');
     let author = filterFrame.querySelector('[id = input-author]');
@@ -17,11 +17,11 @@
     }
 
     let filteredArticles = articleService.getArticles(undefined, undefined, filter);
-    domService.upToDateAfterFiltering(filteredArticles);
+    domService.upDateAfterFiltering(filteredArticles);
     domService.hideFilterMenu();
   };
 
-  filterFrameListener.addButtonListener = (event) => {
+  filterFrameController.addTagListener = (event) => {
 
     let filter = document.querySelector('div.filtration-frame');
     let tagsSelect = filter.querySelector('select');
@@ -36,5 +36,5 @@
     }
   };
 
-  window.filterFrameListener = filterFrameListener;
+  window.filterFrameController = filterFrameController;
 }(window.articleService, window.tagService);

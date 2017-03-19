@@ -1,4 +1,4 @@
-;!function () {
+;!function (vc) {
 
   window.addArticleView = () => {
 
@@ -18,12 +18,12 @@
       '<div class="clear"></div>' +
       '<textarea class="content-input" placeholder="content"></textarea>' +
       '<div class="clear"></div>' +
-      '<input class="add-input" type="button" value="add" onclick="window.addViewListener.addButtonListener(event)"/>' +
+      '<input class="add-input" type="button" value="add" onclick="window.addViewController.addButtonListener(event)"/>' +
       '<div class="back-button">'+
-      '<input type="button" value="back" onclick="window.pageListener.backButtonListener(event)"/>'+
+      '<input type="button" value="back" onclick="window.addViewController.backButtonListener(event)"/>'+
       '</div>'+
       '</div>';
 
     return view;
   }
-}();
+}(window.addViewController);

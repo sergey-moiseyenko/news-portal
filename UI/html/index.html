@@ -1,118 +1,72 @@
 <!DOCTYPE>
 <html>
-<head>
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/reset.css" rel="stylesheet">
-    <script src="../../js/config.js"></script>
-    <script src="../../js/data/articles.js"></script>
-    <script src="../../js/data/users.js"></script>
-    <script src="../../js/data/articleTags.js"></script>
-    <script src="../../js/util.js"></script>
-    <script src="../../js/service/article-service.js"></script>
-    <script src="../../js/service/user-service.js"></script>
-    <script src="../../js/service/tag-service.js"></script>
-    <script src="../../js/view/article-list-item.view.js"></script>
-    <script src="../../js/view/article.view.js"></script>
-    <script src="../../js/view/authorization-view.js"></script>
-    <script src="../../js/view/add-article-view.js"></script>
-    <script src="../../js/view/edit-article-view.js"></script>
-    <script src="../../js/view/news-list-view.js"></script>
-    <script src="../../js/view/contentView.js"></script>
-    <script src="../../js/view/filter-frame-view.js"></script>
-    <script src="../../js/view/views.js"></script>
-    <script src="../../js/service/dom-api.js"></script>
-    <script src="../../js/state/state.js"></script>
-    <script src="../../js/listeners/page-listener.js"></script>
-    <script src="../../js/listeners/view-listeners/addViewListener.js"></script>
-    <script src="../../js/listeners/view-listeners/filterFrameListener.js"></script>
-    <script src="../../js/listeners/view-listeners/editViewListener.js"></script>
-    <script src="../../js/listeners/view-listeners/sing-in-listener.js"></script>
-    <script src="../../js/task5.js"></script>
-</head>
-<body>
-<div class="main-page" id="main-page-id">
-    <div class="layout-heading">
-        <div class="logo">
-            <img src="../images/logo.png"/>
-        </div>
-        <div class="sign-in-out-cell" id="sing-in-out-cell-id">
-            <label class="user-name"></label>
-            <input type="button" class="sign-in-button" value="sing in" onclick='window.pageListener.logInOutFrame(event)'/>
-        </div>
-        <div class="main-title clear">
-            <div>NEWS PORTAL</div>
-        </div>
-
-        <div class="drop-down-menu" onmouseenter="window.pageListener.filterMenuButton(event)">
-            <!--<form>
-                <div class="filtration-frame">
-                    <div class="field">
-                        <label for="input-tags" class="label-text">Input tags</label>
-                        <input type="text" id="input-tags" class="input-text" placeholder="Tags"/>
-                        <div class="clear"></div>
-                        <div class="select-tags">
-                            <select>
-                                <option>Tag list</option>
-                                <option>Media</option>
-                                <option>Sport</option>
-                                <option>Politics</option>
-                            </select>
-                        </div>
-                        <div class="add-tag-button">
-                            <input type="button" value="add"/>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="field">
-                        <label for="input-author" class="label-text">Input Author</label>
-                        <input type="text" id="input-author" class="input-text" placeholder="Author"/>
-                    </div>
-                    <div class="field">
-                        <label for="input-date" class="label-text">Input Date</label>
-                        <input type="text" id="input-date" class="input-text" placeholder="Date"/>
-                    </div>
-
-                    <div class="filtration-button" onclick="window.filterFrameListener.searchItemListener(event)">
-                        <button>
-                            Search
-                        </button>
-                    </div>
-
+    <head>
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/reset.css" rel="stylesheet">
+        <script src="../../js/config.js"></script>
+        <script src="../../js/data/articles.js"></script>
+        <script src="../../js/data/users.js"></script>
+        <script src="../../js/data/articleTags.js"></script>
+        <script src="../../js/util.js"></script>
+        <script src="../../js/service/article-service.js"></script>
+        <script src="../../js/service/user-service.js"></script>
+        <script src="../../js/service/tag-service.js"></script>
+        <script src="../../js/view/article-list-item.view.js"></script>
+        <script src="../../js/view/article.view.js"></script>
+        <script src="../../js/view/authorization-view.js"></script>
+        <script src="../../js/view/add-article-view.js"></script>
+        <script src="../../js/view/edit-article-view.js"></script>
+        <script src="../../js/view/news-list-view.js"></script>
+        <script src="../../js/view/filter-frame-view.js"></script>
+        <script src="../../js/view/sign-in-out-views.js"></script>
+        <script src="../../js/view/user-commands-view.js"></script>
+        <script src="../../js/view/views.js"></script>
+        <script src="../../js/service/dom-api.js"></script>
+        <script src="../../js/controller/page-controller.js"></script>
+        <script src="../../js/controller/view-controllers/add-article-view-controller.js"></script>
+        <script src="../../js/controller/view-controllers/filter-frame-view-controller.js"></script>
+        <script src="../../js/controller/view-controllers/edit-article-view-controller.js"></script>
+        <script src="../../js/controller/view-controllers/sing-in-controller.js"></script>
+        <script src="../../js/task5.js"></script>
+    </head>
+    <body>
+        <div class="main-page" id="main-page-id">
+            <div class="layout-heading">
+                <div class="logo">
+                    <img src="../images/logo.png"/>
                 </div>
-            </form> -->
-            <div class="icons">
-                <div class="filtration-icon"></div>
+                <div class="sign-in-out-cell" id="sing-in-out-cell-id">
+                    <label class="user-name"></label>
+                    <input type="button" class="sign-in-button" value="sing in"
+                           onclick='window.pageController.logInOutFrame(event)'/>
+                </div>
+                <div class="main-title clear">
+                    <div>NEWS PORTAL</div>
+                </div>
+
+                <div class="drop-down-menu" onmouseenter="window.pageController.filterMenuButton(event)">
+                    <div class="icons">
+                        <div class="filtration-icon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="content" id="content-id">
+            </div>
+            <div class="clear"></div>
+
+        </div>
+        <div class="footer">
+            <div class="footer-cell">
+                <div class="creator-information">
+                    Created by Sergey Moiseyenko
+                    2 course 6 group FPMI<br>
+                    contacts : <a href="mailto:smoiseyenko@gmail.com" style="color: white">smoiseyenko@gmail.com</a>
+                </div>
+                <div class="footer-copyright">© 2017 News-Portal Media Inc</div>
             </div>
         </div>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="content" id="content-id">
-        <div class="news-list" id="news-list-id"></div>
-    <div class="clear"></div>
-
-    <div class="user-commands">
-        <div class="add-news-button article-expanded">
-            <input type="button" value="add news" onclick="window.pageListener.addArticleFrame(event)"/>
-        </div>
-        <div class="clear"></div>
-        <div class="load-more-button">
-            <input type="button" value="load more"/>
-        </div>
-    </div>
-    </div>
-</div>
-<div class="footer">
-    <div class="footer-cell">
-        <div class="creator-information">
-            Created by Sergey Moiseyenko
-            2 course 6 group FPMI<br>
-            contacts : <a href="mailto:smoiseyenko@gmail.com" style="color: white">smoiseyenko@gmail.com</a>
-        </div>
-        <div class="footer-copyright">© 2017 News-Portal Media Inc</div>
-    </div>
-</div>
-</div>
-</body>
+    </body>
 </html>

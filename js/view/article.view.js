@@ -29,7 +29,7 @@
       "<div class=\"detail-news-content\">" + article.content + "</div>" +
       "<div class=\"clear\"></div>" +
       "<div class=\"back-button\">"+
-      "<input type=\"button\" value=\"back\" onclick='window.pageListener.backButtonListener(event)'/>"+
+      "<input type=\"button\" value=\"back\" onclick='window.pageController.backButtonListener(event)'/>"+
       "</div>"+
       "</div>";
 

@@ -4,7 +4,7 @@
 //Also u don't need call userConfig method from console, u can just click on sign-in/sign-out element
 //You can delete and edit news only in news-list mode, in show-detail mode you can't do this, cause this mode doesn't contain delete and edit buttons in my proto
 //To remove and add tags just call this method on window.test object; You can change params these methods in this file
-//!!! Only sign-in/sign-out elements have own listeners
+//!!! Only sign-in/sign-out elements have own controller
 
 ;!function (domService, articleService) {
 

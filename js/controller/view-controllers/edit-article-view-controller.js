@@ -1,8 +1,8 @@
 ;!function (domService) {
 
-  let editViewListener = {};
+  let editViewController = {};
 
-  editViewListener.addButtonListener = (event) => {
+  editViewController.addTagListener = (event) => {
 
     let article = document.querySelector('div.edit-article-view');
     if (!article) return;
@@ -17,5 +17,5 @@
     domService.editNews(article.id, editArticle);
   };
 
-  window.editViewListener = editViewListener;
+  window.editViewController = editViewController;
 }(window.domService);

@@ -12,7 +12,7 @@
       '<option disabled>Tag list</option>' +
       '</select>' +
       '</div>' +
-      '<div class="add-tag-button" onclick="window.filterFrameListener.addButtonListener(event)">' +
+      '<div class="add-tag-button" onclick="window.filterFrameController.addTagListener(event)">' +
       '<input type="button" value="add"/>' +
       '</div>' +
       '</div>'+
@@ -25,7 +25,7 @@
       '<label for="input-date" class="label-text">Input Date</label>'+
       '<input type="text" id="input-date" class="input-text" placeholder="Date"/>'+
       '</div>' +
-      '<div class="filtration-button" onclick="window.filterFrameListener.searchItemListener(event)">' +
+      '<div class="filtration-button" onclick="window.filterFrameController.searchItemListener(event)">' +
       '<button>' +
       'Search' +
       '</button>' +

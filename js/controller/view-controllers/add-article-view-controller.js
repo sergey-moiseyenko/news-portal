@@ -1,8 +1,8 @@
-;!function (domService) {
+;!function (domService, pageController) {
 
-  let addViewListener = {};
+  let addViewController = {};
 
-  addViewListener.addButtonListener = (event) => {
+  addViewController.addButtonListener = (event) => {
 
     let target = event.target;
     while (target != null && target.className !== 'add-news-frame') target = target.parentNode;
@@ -26,5 +26,10 @@
     domService.addNews(article);
   };
 
-  window.addViewListener = addViewListener;
-}(window.domService);
+  addViewController.backButtonListener = (event) => {
+    // write backButtonListener window.pageController
+    pageController.backButtonListener(event);
+  };
+
+  window.addViewController = addViewController;
+}(window.domService, window.pageController);

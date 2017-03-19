@@ -6,6 +6,7 @@
 
   let newsTags = config.TAGS;
   let articleService = {};
+  let showArticles = articles.slice(0, articles.length);
 
   articleService.getArticle = id => articles.find(article => article.id === id);
 
