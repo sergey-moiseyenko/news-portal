@@ -9,10 +9,9 @@
 
     let element = target.querySelector('input.tags-input');
     let article = {};
-    article.id = '10';
+    article.id = Math.random().toString();
     let tags = element.value;
-    article.tags = [];
-    article.tags.push(tags);
+    article.tags = tags.split(' ');
     element = target.querySelector('input.title-input');
     article.title = element.value;
     element = target.querySelector('input.summary-input');

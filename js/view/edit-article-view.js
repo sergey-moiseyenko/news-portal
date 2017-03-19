@@ -7,7 +7,7 @@
       tags += elem + " ";
     });
 
-    let view = '<div class = "edit-article-view">'+
+    let view = '<div class = "edit-article-view" id="'+article.id+'">'+
       '<input class="tags-input" type="text" value="'+ tags +'"/>' +
       '<div class="clear"></div>' +
       '<input class="title-input" type="text" value="'+ article.title +'"/>' +

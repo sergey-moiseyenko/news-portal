@@ -1,9 +1,11 @@
-;!function (articleService) {
+;!function (articleService, articleTagsService) {
   'use strict';
 
   const articleView = window.articleView;
 
   let domService = {};
+
+  let currentArticles = articleService.getData();
 
   domService.showNews = (article) => {
     let detailArticle = window.detailArticleView(article);
@@ -115,7 +117,7 @@
       newsList = content.querySelector('div.news-list');
     }
 
-    articles.forEach(article => {
+    currentArticles.forEach(article => {
       let view = articleView(article);
       let news = document.createElement('div');
       news.className = 'news';
@@ -143,5 +145,31 @@
     domService.usersConfig(document.querySelector('div.news-list'), singInButton.value);
   };
 
+  domService.upToDateAfterFiltering = (articles) => {
+    if (!articles) return;
+    currentArticles = articles;
+    domService.upToDate();
+  };
+
+  domService.showFilterMenu = () => {
+    let filterMenuButton = document.querySelector('div.drop-down-menu');
+    let filterForm = document.createElement('div');
+    filterForm.innerHTML = window.filterView();
+    let select = filterForm.querySelector('select');
+    let tags = tagService.getArticleTags();
+    tags.forEach(tag => {
+      let option = document.createElement('option');
+      option.innerHTML = tag;
+      select.appendChild(option);
+    });
+    filterMenuButton.insertBefore(filterForm, filterMenuButton.firstChild);
+  };
+
+  domService.hideFilterMenu = () => {
+    let filterMenuButton = document.querySelector('div.drop-down-menu');
+    let filterForm = filterMenuButton.querySelector('div');
+    filterMenuButton.removeChild(filterForm);
+  };
+
   window.domService = domService;
-}(window.articleService);
+}(window.articleService, window.tagService);

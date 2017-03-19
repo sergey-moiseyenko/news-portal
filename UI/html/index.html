@@ -6,9 +6,11 @@
     <script src="../../js/config.js"></script>
     <script src="../../js/data/articles.js"></script>
     <script src="../../js/data/users.js"></script>
+    <script src="../../js/data/articleTags.js"></script>
     <script src="../../js/util.js"></script>
     <script src="../../js/service/article-service.js"></script>
     <script src="../../js/service/user-service.js"></script>
+    <script src="../../js/service/tag-service.js"></script>
     <script src="../../js/view/article-list-item.view.js"></script>
     <script src="../../js/view/article.view.js"></script>
     <script src="../../js/view/authorization-view.js"></script>
@@ -16,11 +18,13 @@
     <script src="../../js/view/edit-article-view.js"></script>
     <script src="../../js/view/news-list-view.js"></script>
     <script src="../../js/view/contentView.js"></script>
+    <script src="../../js/view/filter-frame-view.js"></script>
     <script src="../../js/view/views.js"></script>
     <script src="../../js/service/dom-api.js"></script>
     <script src="../../js/state/state.js"></script>
     <script src="../../js/listeners/page-listener.js"></script>
     <script src="../../js/listeners/view-listeners/addViewListener.js"></script>
+    <script src="../../js/listeners/view-listeners/filterFrameListener.js"></script>
     <script src="../../js/listeners/view-listeners/editViewListener.js"></script>
     <script src="../../js/listeners/view-listeners/sing-in-listener.js"></script>
     <script src="../../js/task5.js"></script>
@@ -39,8 +43,8 @@
             <div>NEWS PORTAL</div>
         </div>
 
-        <div class="drop-down-menu">
-            <form>
+        <div class="drop-down-menu" onmouseenter="window.pageListener.filterMenuButton(event)">
+            <!--<form>
                 <div class="filtration-frame">
                     <div class="field">
                         <label for="input-tags" class="label-text">Input tags</label>
@@ -68,17 +72,17 @@
                         <input type="text" id="input-date" class="input-text" placeholder="Date"/>
                     </div>
 
-                    <div class="filtration-button">
+                    <div class="filtration-button" onclick="window.filterFrameListener.searchItemListener(event)">
                         <button>
                             Search
                         </button>
                     </div>
 
                 </div>
-                <div class="icons">
-                    <div class="filtration-icon"></div>
-                </div>
-            </form>
+            </form> -->
+            <div class="icons">
+                <div class="filtration-icon"></div>
+            </div>
         </div>
     </div>
 

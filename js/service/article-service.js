@@ -1,4 +1,4 @@
-;!function (articles, config, util) {
+;!function (articles, config, util, tags, savedArticles) {
 
   'use strict';
 
@@ -84,7 +84,7 @@
     let filterKeys = Object.keys(filter);
     let filteredArticles = articles.filter(article => {
       if(!filterTags.every(tag => article.tags.includes(tag))) return false;
-      return filterKeys.every(filterKey => filter[filterKey] === article[filterKey]);
+      return filterKeys.every(filterKey => filter[filterKey].toString() === article[filterKey].toString());
     });
 
     skip = util.skipNumberValid(skip, filteredArticles.length);
@@ -99,5 +99,9 @@
     localStorage.setItem('articles', articles);
   };
 
+  articleService.getData = () => {
+    return articles;
+  };
+
   window.articleService = articleService;
-}(window.articles, window.CONFIG, window.util);
+}(window.articles, window.CONFIG, window.util, window.articleTags, window.savedArticles);

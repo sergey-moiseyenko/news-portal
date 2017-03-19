@@ -189,6 +189,19 @@
     /*border: 2px dashed orange;*/
 }
 
+
+/*
+
+.article-collapsed {
+    display: none;
+}
+
+.article-expanded {
+    display: inline-block;
+}
+
+*/
+
 /*----------
 ----------*/
 
@@ -570,6 +583,5 @@
     background-color: white;
     border: 1px solid grey;
 }
-
 
 

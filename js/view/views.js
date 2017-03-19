@@ -9,6 +9,7 @@
   views.editArticleView = window.editArticleView;
   views.newsListView = window.newsListView;
   views.contentView = window.contentView;
+  views.filterView = window.filterView;
 
   window.views = views;
 }();

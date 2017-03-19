@@ -14,7 +14,7 @@
     editArticle.tags = [];
     editArticle.tags.push(article.querySelector('input.tags-input').value);
 
-    domService.editNews('10', editArticle);
+    domService.editNews(article.id, editArticle);
   };
 
   window.editViewListener = editViewListener;

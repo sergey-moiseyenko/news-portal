@@ -2,16 +2,7 @@
 
   let pageListener = {};
 
-  //addEventListener('onload', domService.upToDate);
-
   window.onload = domService.upToDate;
-
-  //backButton.onclick = () => {
-   // if (!states) return;
-    //let pageElement = states.shift();
-    //states.unshift(document.documentElement);
-   //document.documentElement.innerHTML = pageElement;
-  //};
 
   pageListener.logInOutFrame = (event) => {
 
@@ -57,6 +48,10 @@
 
   pageListener.backButtonListener = (event) => {
     domService.upToDate();
+  };
+
+  pageListener.filterMenuButton = (event) => {
+    domService.showFilterMenu();
   };
 
   window.pageListener = pageListener;

@@ -1,4 +1,4 @@
-;! function (users) {
+;!function (users) {
 
   let userService = {};
 
