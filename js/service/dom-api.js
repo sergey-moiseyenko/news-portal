@@ -15,7 +15,7 @@
   domService.addNews = article => {
     article = articleService.addArticle(article);
     if (!article) return;
-    currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
+    currentArticles = articleService.getArticles(0, countArticlesOnPage);
     domService.setDataAfterLoad();
   };
 
@@ -27,12 +27,12 @@
 
     let newsListDiv = document.getElementById('news-list-id');
     newsListDiv.removeChild(article);
-    currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
+    currentArticles = articleService.getArticles(0, countArticlesOnPage);
   };
 
   domService.editNews = (id, articleForEdit = undefined) => {
     if (!articleService.editArticle(id, articleForEdit)) return false;
-    currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
+    currentArticles = articleService.getArticles(0, countArticlesOnPage);
     domService.setDataAfterLoad();
     return true;
   };

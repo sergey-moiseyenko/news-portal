@@ -11,8 +11,6 @@
       '<div class="clear"></div>' +
       '<input class="author-input" type="text" placeholder="author"/>' +
       '<div class="clear"></div>' +
-      '<input class="date-input" type="text" placeholder="date"/>' +
-      '<div class="clear"></div>' +
       '<div class="detail-news-photo">' +
       '</div>' +
       '<div class="clear"></div>' +

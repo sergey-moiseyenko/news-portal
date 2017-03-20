@@ -1,4 +1,4 @@
-;!function (articles, config, util, tags, savedArticles) {
+;!function (articles, config, util, tags) {
 
   'use strict';
 
@@ -6,7 +6,6 @@
 
   let newsTags = config.TAGS;
   let articleService = {};
-  let showArticles = articles.slice(0, articles.length);
 
   articleService.getArticle = id => articles.find(article => article.id === id);
 
@@ -24,7 +23,7 @@
 
   articleService.addArticle = article => {
     if (!articleService.isArticleValid(article)) return;
-    articles.push(article);
+    articles.unshift(article);
     saveChanges(JSON.stringify(articles));
     return article;
   };
@@ -45,8 +44,7 @@
     });
 
     if (articleService.isArticleValid(articleClone)) {
-      articleService.removeArticle(id);
-      articleService.addArticle(articleClone);
+      articles[articles.indexOf(currentArticle)] = articleClone;
       saveChanges(JSON.stringify(articles));
       return true;
     }
@@ -98,7 +96,7 @@
 
   function saveChanges(articles) {
     localStorage.setItem('articles', articles);
-  };
+  }
 
   window.articleService = articleService;
-}(window.articles, window.CONFIG, window.util, window.articleTags, window.savedArticles);
+}(window.articles, window.CONFIG, window.util, window.articleTags);

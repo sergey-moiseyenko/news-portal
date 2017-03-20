@@ -11,8 +11,7 @@
     editArticle.summary = article.querySelector('input.summary-input').value;
     editArticle.title = article.querySelector('input.title-input').value;
     editArticle.content = article.querySelector('textarea.content-input').value;
-    editArticle.tags = [];
-    editArticle.tags.push(article.querySelector('input.tags-input').value);
+    editArticle.tags = article.querySelector('input.tags-input').value.split(' ');
 
     domService.editNews(article.id, editArticle);
   };

@@ -18,8 +18,7 @@
     article.summary = element.value;
     element = target.querySelector('input.author-input');
     article.author = element.value;
-    element = target.querySelector('input.date-input');
-    article.createdAt = new Date(element.value);
+    article.createdAt = new Date();
     element = target.querySelector('textArea.content-input');
     article.content = element.value;
 
