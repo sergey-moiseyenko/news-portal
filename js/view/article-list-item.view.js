@@ -1,4 +1,4 @@
-;!function () {
+;!function (pc) {
 
   window.articleView = (article) => {
 
@@ -10,7 +10,7 @@
     let view = "<div class=\"news-title\">" +
       "<strong>" + article.title + "</strong>" +
       "</div>" +
-      "<div class=\"news-photo\" onclick='window.pageController.showArticle(event)'>" +
+      "<div class=\"news-photo\" onclick='new ArticleDetailPageComponent(" + "\"" + article.id + "\"" + ").render()'>" +
       "<img src=\"../images/Taylor-News.jpg\"/>" +
       "</div>" +
       "<div class=\"news-tag\">" + tags + "</div>" +
@@ -22,7 +22,7 @@
       "<span>" + article.createdAt.toDateString() + "</span>" +
       "</div>" +
       "<div class=\"clear\"></div>" +
-      "<div class='edit-news-button' onclick='window.pageController.editArticleFrame(event)'>" +
+      "<div class='edit-news-button' onclick='new ArticleEditPageComponent(" + "\"" + article.id + "\"" + ").render()'>" +
       "<input type='button' value='edit'/>" +
       "</div>" +
       "<div class='delete-news-button' onclick='window.pageController.deleteArticle(event)'>" +
@@ -32,4 +32,4 @@
 
     return view;
   };
-}();
+}(window.pageController);

@@ -1,4 +1,4 @@
-;!function (articleService, tagService, config) {
+;!function (articleService, tagService, config, userService, views) {
   'use strict';
 
   const articleView = window.articleView;
@@ -30,7 +30,7 @@
     currentArticles = articleService.getArticles(0, countArticlesOnPage);
   };
 
-  domService.editNews = (id, articleForEdit = undefined) => {
+  domService.editNews = (id, articleForEdit) => {
     if (!articleService.editArticle(id, articleForEdit)) return false;
     currentArticles = articleService.getArticles(0, countArticlesOnPage);
     domService.setDataAfterLoad();
@@ -41,7 +41,7 @@
 
   domService.usersConfig = (newsList, value) => {
     let deleteButtons = newsList.querySelectorAll('div.delete-news-button');
-    let editButtons= newsList.querySelectorAll('div.edit-news-button');
+    let editButtons = newsList.querySelectorAll('div.edit-news-button');
     let addNewsButton = document.querySelector('div.add-news-button');
 
     if (value == 'sing in') {
@@ -117,7 +117,7 @@
     userCommands.innerHTML = userCommandsView();
     content.appendChild(userCommands);
 
-    currentArticles.forEach(article => {
+    articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE).forEach(article => {
       let news = document.createElement('div');
       news.className = 'news';
       news.id = article.id;
@@ -177,5 +177,30 @@
     domService.usersConfig(newsList, signInButton.value);
   };
 
+  domService.logInOutFrame = () => {
+    let logInButton = document.querySelector('div.sign-in-out-cell');
+    if (event.target.value === 'sing in') {
+      logInButton.innerHTML = views.authorizationView();
+    } else {
+      let label = logInButton.querySelector('label.user-name');
+      label.innerHTML = "";
+      event.target.value = "sing in";
+      userService.removeUser();
+      domService.usersConfig(document.querySelector('div.news-list'), event.target.value);
+    }
+  };
+
+  domService.addArticleFrame = () => {
+    let content = document.querySelector('div.content');
+    content.innerHTML = views.addArticleView();
+  };
+
+  domService.editArticleFrame = (event) => {
+    let target = event.target;
+    while (target.className !== 'news') target = target.parentNode;
+    let content = document.querySelector('div.content');
+    content.innerHTML = views.editArticleView(articleService.getArticle(target.id));
+  };
+
   window.domService = domService;
-}(window.articleService, window.tagService, window.CONFIG);
+}(window.articleService, window.tagService, window.CONFIG, window.userService, window.views);

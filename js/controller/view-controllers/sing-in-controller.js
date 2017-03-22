@@ -2,7 +2,7 @@
 
   let singInController = {};
 
-  singInController.singInButtonListener = (event) => {
+  singInController.singInButtonListener = () => {
 
     let user = {};
     let singInFrame = document.querySelector('form.sing-in-frame');
