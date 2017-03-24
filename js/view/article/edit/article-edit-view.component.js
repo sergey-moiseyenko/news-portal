@@ -1,8 +1,6 @@
 ;!function () {
   'use strict';
 
-  const articleEditViewClass = 'edit-article-view';
-
   class ArticleEditViewComponent {
 
     constructor(article, onAdd, onBack) {
@@ -11,7 +9,7 @@
       this.onBack = onBack;
     }
 
-    view() {
+    render() {
 
       let article = this.article;
 
@@ -20,8 +18,7 @@
         tags += elem + " ";
       });
 
-      let view = '<div class = ' + articleEditViewClass + ' id="' + article.id + '">' +
-        '<input class="tags-input" type="text" value="' + tags + '"/>' +
+      let view = '<input class="tags-input" type="text" value="' + tags + '"/>' +
         '<div class="clear"></div>' +
         '<input class="title-input" type="text" value="' + article.title + '"/>' +
         '<div class="clear"></div>' +
@@ -45,12 +42,11 @@
         '</div>' +
         '<div class="back-button">' +
         '<input type="button" value="back"/>' +
-        '</div>' +
         '</div>';
 
       let editElement = document.createElement('div');
-      editElement.className = articleEditViewClass;
-      editElement.id = article.id;
+      editElement.className = 'edit-article-view';
+      editElement.id = 'article-' + this.article.id;
       editElement.innerHTML = view;
       editElement.querySelector('div.add-input').addEventListener('click', this.onAddClicked.bind(this));
       editElement.querySelector('div.back-button').addEventListener('click', this.onBackClicked.bind(this));
@@ -59,7 +55,15 @@
     }
 
     onAddClicked() {
-      let articleEl = document.querySelector('div.' + articleEditViewClass);
+      this.onAdd(this.fetchFormData());
+    }
+
+    onBackClicked() {
+      this.onBack();
+    }
+
+    fetchFormData() {
+      let articleEl = document.querySelector('div#article-' + this.article.id);
       if (!articleEl) return;
 
       let articleUpdated = {};
@@ -70,14 +74,7 @@
       articleUpdated.tags = articleEl.querySelector('input.tags-input').value.split(' ');
       articleUpdated.author = articleEl.querySelector('a.href-news-author').innerText;
       articleUpdated.createdAt = new Date(articleEl.querySelector('div.detail-news-date').innerText);
-
-      console.log(articleService.isArticleValid(articleUpdated));
-
-      this.onAdd(articleUpdated);
-    }
-
-    onBackClicked() {
-      this.onBack();
+      return articleUpdated;
     }
   }
 

@@ -1,0 +1,88 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/reset.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="main-page" id="main-page-id">
+            <div class="layout-heading">
+                <div class="logo">
+                    <img src="../images/logo.png"/>
+                </div>
+                <div class="sign-in-out-cell" id="sing-in-out-cell-id">
+                    <label class="user-name"></label>
+                    <input type="button" class="sign-in-button" value="sing in" onclick="new AuthorizationComponent().render()"/>
+                </div>
+                <div class="main-title clear">
+                    <div>NEWS PORTAL</div>
+                </div>
+
+                <div class="drop-down-menu" onmouseenter="new FilterComponent().render()">
+                    <div class="icons">
+                        <div class="filtration-icon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="content" id="content-id">
+            </div>
+            <div class="clear"></div>
+
+        </div>
+        <div class="footer">
+            <div class="footer-cell">
+                <div class="creator-information">
+                    Created by Sergey Moiseyenko
+                    2 course 6 group FPMI<br>
+                    contacts : <a href="mailto:smoiseyenko@gmail.com" style="color: white">smoiseyenko@gmail.com</a>
+                </div>
+                <div class="footer-copyright">© 2017 News-Portal Media Inc</div>
+            </div>
+        </div>
+
+        <script src="../../js/util/config.js"></script>
+        <script src="../../js/data/articles.js"></script>
+        <script src="../../js/data/users.js"></script>
+        <script src="../../js/data/articleTags.js"></script>
+        <script src="../../js/util/util.js"></script>
+
+        <!-- Service layer -->
+        <script src="../../js/service/article-service.js"></script>
+        <script src="../../js/service/user-service.js"></script>
+        <script src="../../js/service/tag-service.js"></script>
+
+        <!-- View controllers -->
+
+        <!-- Views -->
+        <script src="../../js/view/article/list/article-list-item-view.component.js"></script>
+        <script src="../../js/view/article/list/article-list-view.component.js"></script>
+        <script src="../../js/view/article/edit/article-edit-view.component.js"></script>
+        <script src="../../js/view/article/add/article-add-view.component.js"></script>
+        <script src="../../js/view/article/details/article-details-view.component.js"></script>
+        <script src="../../js/view/user/authorization-view.component.js"></script>
+        <script src="../../js/view/pagination/user-commands-view.component.js"></script>
+        <script src="../../js/view/filter/filter-view.component.js"></script>
+
+        <!-- Page controllers -->
+
+        <script src="../../js/service/dom-api.js"></script>
+        <script src="../../js/main/article/list/article-list.page.js"></script>
+        <script src="../../js/main/article/edit/article-edit.page.js"></script>
+        <script src="../../js/main/article/details/article-details.page.js"></script>
+        <script src="../../js/main/user/authorization.component.js"></script>
+        <script src="../../js/main/pagination/user-commands.component.js"></script>
+        <script src="../../js/main/filter/filter.component.js"></script>
+
+        <script>
+            let articleListComponent = new ArticleListPageComponent();
+            let userComponent = new AuthorizationComponent();
+            let userCommands = new UserCommandsComponent();
+            window.addEventListener('load', articleListComponent.render.bind(articleListComponent));
+            window.addEventListener('load', userCommands.render.bind(userCommands));
+            window.addEventListener('load', userComponent.onload.bind(userComponent));
+        </script>
+    </body>
+</html>

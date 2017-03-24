@@ -39,10 +39,14 @@
 
   //refactoring this method
 
-  domService.usersConfig = (newsList, value) => {
+  domService.usersConfig = () => {
+    let newsList = document.querySelector('div.news-list');
+    if (!newsList) return;
     let deleteButtons = newsList.querySelectorAll('div.delete-news-button');
     let editButtons = newsList.querySelectorAll('div.edit-news-button');
     let addNewsButton = document.querySelector('div.add-news-button');
+    let logInButton = document.querySelector('input.sign-in-button');
+    let value = logInButton.value;
 
     if (value == 'sing in') {
       deleteButtons.forEach(deleteButton => {
@@ -180,7 +184,7 @@
   domService.logInOutFrame = () => {
     let logInButton = document.querySelector('div.sign-in-out-cell');
     if (event.target.value === 'sing in') {
-      logInButton.innerHTML = views.authorizationView();
+      logInButton.innerHTML = window.authorizationView();
     } else {
       let label = logInButton.querySelector('label.user-name');
       label.innerHTML = "";

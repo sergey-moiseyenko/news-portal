@@ -15,7 +15,8 @@
     }
 
     onBackClicked() {
-      domService.setDataAfterLoad();
+      new ArticleListPageComponent(articles).render();
+      new UserCommandsComponent().render();
     }
   }
 

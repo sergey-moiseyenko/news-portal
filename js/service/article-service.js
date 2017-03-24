@@ -28,14 +28,13 @@
     return article;
   };
 
-  articleService.editArticle = (id, article) => {
-    if (article == undefined || id == undefined) return false;
-    let currentArticle = articleService.getArticle(id);
+  articleService.editArticle = (article) => {
+    if (!article || !article.id) return false;
+    let currentArticle = articleService.getArticle(article.id);
     if (!currentArticle) return false;
 
     let properties = ['title', 'summary', 'content', 'tags'];
-    let articleClone = {};
-    articleClone = Object.assign(articleClone, currentArticle);
+    let articleClone = Object.assign({}, currentArticle);
 
     properties.forEach((propertyName) => {
       if (article[propertyName]) {
@@ -43,12 +42,11 @@
       }
     });
 
-    if (articleService.isArticleValid(articleClone)) {
-      articles[articles.indexOf(currentArticle)] = articleClone;
-      saveChanges(JSON.stringify(articles));
-      return true;
-    }
-    return false;
+    if (!articleService.isArticleValid(articleClone)) return false;
+
+    articles[articles.indexOf(currentArticle)] = articleClone;
+    saveChanges(JSON.stringify(articles));
+    return true;
   };
 
   articleService.removeArticle = (id) => {
@@ -89,7 +87,7 @@
     skip = util.skipNumberValid(skip, filteredArticles.length);
     top = util.topNumberValid(top);
     filteredArticles = filteredArticles.slice(skip, skip + top);
-    filteredArticles.sort((article1, article2) => article1.createdAt - article2.createdAt);
+    filteredArticles.sort((article1, article2) => article2.createdAt - article1.createdAt);
 
     return filteredArticles;
   };
