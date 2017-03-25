@@ -96,5 +96,11 @@
     localStorage.setItem('articles', articles);
   }
 
+  let currentArticles = articleService.getArticles(CONFIG.SKIP_DEFAULTS, CONFIG.TOP_DEFAULTS);
+
+  articleService.showArticles = () => {
+
+  };
+
   window.articleService = articleService;
 }(window.articles, window.CONFIG, window.util, window.articleTags);

@@ -18,7 +18,8 @@
       let userCommandsElem = document.createElement('div');
       userCommandsElem.classList.add('user-commands');
       userCommandsElem.innerHTML = view;
-      userCommandsElem.querySelector('load-more-button').addEventListener('click', this.onloadClicked.bind(this));
+      let loadButton = userCommandsElem.querySelector('div.load-more-button');
+      loadButton.addEventListener('click', this.onloadClicked.bind(this));
 
       return userCommandsElem;
     }
