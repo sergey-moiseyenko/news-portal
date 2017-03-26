@@ -1,4 +1,4 @@
-var express = require('express'),
+let express = require('express'),
   app = express();
 
 app.use(express.static('public'));
