@@ -18,7 +18,7 @@
         "<strong>" + article.title + "</strong>" +
         "</div>" +
         "<div class=\"news-photo\" onclick='new ArticleDetailPageComponent(" + "\"" + article.id + "\"" + ").render()'>" +
-        "<img src=\"../images/Taylor-News.jpg\"/>" +
+        "<img src=\"../UI/images/Taylor-News.jpg\"/>" +
         "</div>" +
         "<div class=\"news-tag\">" + tags + "</div>" +
         "<div class=\"news-description\">" + article.summary + "</div>" +

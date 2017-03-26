@@ -1,0 +1,22 @@
+{
+  "name": "news-portal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergey-moiseyenko/news-portal.git"
+  },
+  "author": "sergey-moiseyenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sergey-moiseyenko/news-portal/issues"
+  },
+  "homepage": "https://github.com/sergey-moiseyenko/news-portal#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
