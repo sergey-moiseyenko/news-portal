@@ -4,7 +4,7 @@
 
     constructor() {
       this.db = require('diskdb');
-      this.connect = this.db.connect('..', ['users', 'current_user']);
+      this.connect = this.db.connect(__dirname + '/../data', ['users', 'current_user']);
     }
 
     getUsersFromDb() {

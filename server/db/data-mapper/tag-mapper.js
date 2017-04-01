@@ -3,7 +3,7 @@
   class TagMapper {
     constructor() {
       this.db = require('diskdb');
-      this.db.connect('..', ['tags']);
+      this.db.connect(__dirname + '/../data', ['tags']);
     }
 
     getTagsFromDb() {

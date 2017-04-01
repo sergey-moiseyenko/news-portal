@@ -4,7 +4,7 @@
 
     constructor() {
       this.db = require('diskdb');
-      this.connect = this.db.connect('..', ['articles']);
+      this.connect = this.db.connect(__dirname + '/../data', ['articles']);
     }
 
     loadArticles() {
