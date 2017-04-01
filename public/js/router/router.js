@@ -5,6 +5,7 @@
   class Router {
 
     constructor() {
+
       this.articleListComponent = new ArticleListPageComponent();
       this.userComponent = new AuthorizationComponent();
       this.userCommands = new UserCommandsComponent();
@@ -12,7 +13,7 @@
 
     routeDefault() {
       this.articleListComponent.render();
-      this.userComponent.render();
+      this.userComponent.onload();
       this.userCommands.render();
     }
   }

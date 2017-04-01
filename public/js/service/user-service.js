@@ -2,18 +2,31 @@
 
   let userService = {};
 
-  userService.addUser = (user) => {
-    users.unshift(user);
-    localStorage.setItem('users', JSON.stringify(users));
+  userService.setUser = (user) => {
+
+    //<-- check user exist -->
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/user', false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(user));
+
+    if (xhr.status == 400) return false;
+    return true;
   };
 
-  userService.removeUser = () => {
-    users.shift();
-    if (!users) localStorage.removeItem('users');
-    else localStorage.setItem('users', JSON.stringify(users));
+  userService.getUser = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/current_user', false);
+    xhr.send();
+
+    return JSON.parse(xhr.responseText)[0];
   };
 
-  userService.getUser = () => { return users[0]; };
+  userService.removeCurrentUser = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('DELETE', '/logout');
+    xhr.send();
+  };
 
   window.userService = userService;
 }(window.users);

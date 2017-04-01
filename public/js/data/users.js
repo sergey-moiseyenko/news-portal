@@ -2,8 +2,13 @@
 
   let users = [];
 
-  let localUsers = JSON.parse(localStorage.getItem('users'));
-  if (localUsers != null) users = localUsers;
+  //load users from db
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', '/users', false);
+  xhr.send();
+
+  users = JSON.parse(xhr.responseText);
 
   window.users = users;
 }();

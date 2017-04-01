@@ -24,7 +24,8 @@
   articleService.addArticle = article => {
     if (!articleService.isArticleValid(article)) return;
     articles.unshift(article);
-    saveChanges(JSON.stringify(articles));
+    articleService.setDataToDb();
+
     return article;
   };
 
@@ -45,7 +46,7 @@
     if (!articleService.isArticleValid(articleClone)) return false;
 
     articles[articles.indexOf(currentArticle)] = articleClone;
-    saveChanges(JSON.stringify(articles));
+    articleService.setDataToDb();
     return true;
   };
 
@@ -55,7 +56,7 @@
     if (!article) return;
     let index = articles.indexOf(article);
     articles.splice(index, 1);
-    saveChanges(JSON.stringify(articles));
+    articleService.setDataToDb();
     return article;
   };
 
@@ -92,9 +93,17 @@
     return filteredArticles;
   };
 
-  function saveChanges(articles) {
+  /*function saveChanges(articles) {
     localStorage.setItem('articles', articles);
   }
+  */
+
+  articleService.setDataToDb = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/articles', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(articles));
+  };
 
   window.articleService = articleService;
 }(window.articles, window.CONFIG, window.util, window.articleTags);

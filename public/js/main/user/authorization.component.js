@@ -1,4 +1,4 @@
-;!function () {
+;!function (userService) {
 
   class AuthorizationComponent {
 
@@ -11,7 +11,10 @@
 
     onSignInClicked(user) {
       if (!user) return;
-      userService.addUser(user);
+
+      // <-- check user exist -->
+      if (!userService.setUser(user)) return;
+
       let logInCell = document.querySelector('div.sign-in-out-cell');
       logInCell.innerHTML = '<label class="user-name">'+ user.name +'</label>' +
         '<input type="button" class="sign-in-button" value="sing out"/>';
@@ -20,6 +23,9 @@
     }
 
     onload() {
+
+      //<-- get user after load -->
+
       let user = userService.getUser();
       if (!user) {
         domService.usersConfig();
@@ -34,7 +40,7 @@
     }
 
     signOutClicked() {
-      userService.removeUser();
+      userService.removeCurrentUser();
       let logInCell = document.querySelector('div.sign-in-out-cell');
       logInCell.innerHTML = '<label class="user-name"></label>' +
         '<input type="button" class="sign-in-button" value="sing in"/>';
@@ -45,4 +51,4 @@
 
 
   window.AuthorizationComponent = AuthorizationComponent;
-}();
+}(window.userService);
