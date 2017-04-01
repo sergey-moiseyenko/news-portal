@@ -28,5 +28,15 @@
     xhr.send();
   };
 
+  userService.getUsers = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/users', false);
+    xhr.send();
+
+    users = JSON.parse(xhr.responseText);
+
+    return users;
+  };
+
   window.userService = userService;
 }(window.users);

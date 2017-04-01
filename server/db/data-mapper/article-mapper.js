@@ -11,12 +11,12 @@
       return this.db.articles.find();
     }
 
-    setArticlesToDb(article) {
+    setArticlesToDb(articles) {
       this.db.articles.remove();
       this.db.loadCollections(['articles']);
-      this.db.articles.save(article);
+      this.db.articles.save(articles);
     }
   }
 
-  module.exports.ArticleMapper = ArticleMapper;
+  module.exports.articleMapper = new ArticleMapper();
 }();

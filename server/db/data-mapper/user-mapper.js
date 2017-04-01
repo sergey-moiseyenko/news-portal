@@ -5,9 +5,6 @@
     constructor() {
       this.db = require('diskdb');
       this.connect = this.db.connect('..', ['users', 'current_user']);
-      this.db.users.remove();
-      this.db.loadCollections(['users'], ['current_user']);
-      this.db.users.save([{name: 'Sergey', password: '12345'}, {name: 'Igor', password: '21'}]);
     }
 
     getUsersFromDb() {
@@ -32,5 +29,5 @@
     }
   }
 
-  module.exports.UserMapper = UserMapper;
+  module.exports.userMapper = new UserMapper();
 }();

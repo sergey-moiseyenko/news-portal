@@ -3,11 +3,27 @@
   let tagService = {};
 
   tagService.updateLocalTags = (tag) => {
-    tags.push(tag);
-    localStorage.setItem('tags', JSON.stringify(tags));
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/tag', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({tag : tag}));
   };
 
-  tagService.getArticleTags = () => { return tags };
+  tagService.getArticleTags = () => {
+
+    let tags = [];
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/tags', false);
+    xhr.send();
+
+    let loadTags = JSON.parse(xhr.responseText);
+    loadTags.forEach(tag => {
+      if(tag.tag) tags.push(tag.tag);
+    });
+
+    return tags
+  };
 
   window.tagService = tagService;
 }(window.articleTags);

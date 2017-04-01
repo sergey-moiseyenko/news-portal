@@ -22,6 +22,7 @@
   };
 
   articleService.addArticle = article => {
+    articles = articleService.getArticlesFromDb();
     if (!articleService.isArticleValid(article)) return;
     articles.unshift(article);
     articleService.setDataToDb();
@@ -30,6 +31,7 @@
   };
 
   articleService.editArticle = (article) => {
+    articles = articleService.getArticlesFromDb();
     if (!article || !article.id) return false;
     let currentArticle = articleService.getArticle(article.id);
     if (!currentArticle) return false;
@@ -51,6 +53,7 @@
   };
 
   articleService.removeArticle = (id) => {
+    articles = articleService.getArticlesFromDb();
     if (!id) return;
     let article = articleService.getArticle(id);
     if (!article) return;
@@ -77,6 +80,7 @@
   };
 
   articleService.getArticles = (skip, top, filter = {}) => {
+    articles = articleService.getArticlesFromDb();
     let filterTags = filter.tags || [];
     delete filter.tags;
     let filterKeys = Object.keys(filter);
@@ -103,6 +107,19 @@
     xhr.open('POST', '/articles', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(articles));
+  };
+
+  articleService.getArticlesFromDb = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/articles', false);
+    xhr.send();
+
+    articles = JSON.parse(xhr.responseText, (key, value) => {
+      if (key === 'createdAt') return new Date(value);
+      return value;
+    });
+
+    return articles;
   };
 
   window.articleService = articleService;
