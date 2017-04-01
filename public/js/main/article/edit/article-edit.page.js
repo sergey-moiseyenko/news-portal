@@ -26,7 +26,7 @@
     }
 
     onBack() {
-      new ArticleListPageComponent(articles).render();
+      new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
       new UserCommandsComponent().render();
     }
 
