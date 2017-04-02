@@ -36,6 +36,10 @@ app.get('/articles', (req, res) => {
  res.send(JSON.stringify(articleMapper.loadArticles()));
 });
 
+app.get('/article/:id', (req, res) => {
+  res.send(JSON.stringify(articleMapper.getArticle(req.params.id)));
+});
+
 app.get('/current_user', (req, res) => {
   res.send(JSON.stringify(userMapper.getCurrentUserFromDb()));
 });
