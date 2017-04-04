@@ -1,6 +1,4 @@
-;!function () {
-
-  class TagMapper {
+class TagMapper {
     constructor() {
       this.db = require('diskdb');
       this.db.connect(__dirname + '/../data', ['tags']);
@@ -16,4 +14,3 @@
   }
 
   module.exports.tagMapper = new TagMapper();
-}();

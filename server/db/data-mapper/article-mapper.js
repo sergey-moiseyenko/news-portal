@@ -1,6 +1,4 @@
-;!function () {
-
-  class ArticleMapper {
+class ArticleMapper {
 
     constructor() {
       this.db = require('diskdb');
@@ -24,5 +22,4 @@
     }
   }
 
-  module.exports.articleMapper = new ArticleMapper();
-}();
+module.exports.articleMapper = new ArticleMapper();

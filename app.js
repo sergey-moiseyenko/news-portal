@@ -7,6 +7,7 @@ let userMapper = require(__dirname + '/server/db/data-mapper/user-mapper').userM
 let tagMapper = require(__dirname + '/server/db/data-mapper/tag-mapper').tagMapper;
 
 //<-- express use -->
+
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,14 +53,18 @@ app.get('/tags', (req, res) => {
   res.send(JSON.stringify(tagMapper.getTagsFromDb()));
 });
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/public/UI/html/index.html');
-});
+//app.get('/', function (req, res) {
+  //res.sendFile(__dirname + '/public/UI/html/index.html');
+//});
 
 //<--delete methods -->
 app.delete('/logout', (req, res) => {
   userMapper.deleteCurrentUserFromDb();
   res.json({userWasRemoved: 'ok'});
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/UI/html/index.html');
 });
 
 app.listen(3000);

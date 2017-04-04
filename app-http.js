@@ -5,7 +5,7 @@ http.createServer((request, response) => {
 
   if (request.url == '/') {
     let file = new fs.ReadStream(__dirname + '/public/UI/html/index.html');
-    sendFile(file, response, {'Content-type': 'text/html'}``) ;
+    sendFile(file, response, {'Content-type': 'text/html'}) ;
   }
   else if(request.url.indexOf('.js') != -1){
     let file = new fs.ReadStream(__dirname + '/public' + request.url);
