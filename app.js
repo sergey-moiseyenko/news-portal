@@ -34,15 +34,15 @@ app.post('/tag', (req, res) => {
 
 //<-- get methods -->
 app.get('/articles', (req, res) => {
- res.send(JSON.stringify(articleMapper.loadArticles()));
+ res.send(articleMapper.loadArticles());
 });
 
 app.get('/article/:id', (req, res) => {
-  res.send(JSON.stringify(articleMapper.getArticle(req.params.id)));
+  res.send(articleMapper.getArticle(req.params.id));
 });
 
 app.get('/current_user', (req, res) => {
-  res.send(JSON.stringify(userMapper.getCurrentUserFromDb()));
+  res.send(userMapper.getCurrentUserFromDb());
 });
 
 app.get('/users', (req, res) => {
@@ -50,7 +50,7 @@ app.get('/users', (req, res) => {
 });
 
 app.get('/tags', (req, res) => {
-  res.send(JSON.stringify(tagMapper.getTagsFromDb()));
+  res.send(tagMapper.getTagsFromDb());
 });
 
 //app.get('/', function (req, res) {
