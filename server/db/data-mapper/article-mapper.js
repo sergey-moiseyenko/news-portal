@@ -22,4 +22,4 @@ class ArticleMapper {
     }
   }
 
-module.exports.articleMapper = new ArticleMapper();
+module.exports = new ArticleMapper();

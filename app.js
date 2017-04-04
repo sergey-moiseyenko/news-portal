@@ -2,9 +2,9 @@ let express = require('express'),
   app = express();
 let fs = require('fs');
 let bodyParser = require('body-parser');
-let articleMapper = require(__dirname + '/server/db/data-mapper/article-mapper').articleMapper;
-let userMapper = require(__dirname + '/server/db/data-mapper/user-mapper').userMapper;
-let tagMapper = require(__dirname + '/server/db/data-mapper/tag-mapper').tagMapper;
+let articleMapper = require(__dirname + '/server/db/data-mapper/article-mapper');
+let userMapper = require(__dirname + '/server/db/data-mapper/user-mapper');
+let tagMapper = require(__dirname + '/server/db/data-mapper/tag-mapper');
 
 //<-- express use -->
 

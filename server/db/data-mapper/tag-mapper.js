@@ -13,4 +13,4 @@ class TagMapper {
     }
   }
 
-  module.exports.tagMapper = new TagMapper();
+  module.exports = new TagMapper();
