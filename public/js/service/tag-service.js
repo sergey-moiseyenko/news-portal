@@ -4,7 +4,7 @@
 
   tagService.updateLocalTags = (tag) => {
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tag', true);
+    xhr.open('POST', 'http://localhost:3000/tag', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({tag : tag}));
   };

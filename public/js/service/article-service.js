@@ -11,7 +11,7 @@
 
   articleService.getArticle = id => {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/article/'+id+'', false);
+    xhr.open('GET', 'http://localhost:3000/article/'+id+'', false);
     xhr.send();
 
     if (!xhr.responseText) return undefined;
@@ -113,14 +113,14 @@
 
   articleService.setDataToDb = () => {
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/articles', true);
+    xhr.open('POST', 'http://localhost:3000/articles', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(articles));
   };
 
   articleService.getArticlesFromDb = () => {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/articles', false);
+    xhr.open('GET', 'http://localhost:3000/articles', false);
     xhr.send();
 
     articles = JSON.parse(xhr.responseText, (key, value) => {

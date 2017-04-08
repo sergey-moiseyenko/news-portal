@@ -1,7 +1,7 @@
 let http = require('http');
 let fs = require('fs');
 
-http.createServer((request, response) => {
+/*http.createServer((request, response) => {
 
   if (request.url == '/') {
     let file = new fs.ReadStream(__dirname + '/public/UI/html/index.html');
@@ -26,3 +26,16 @@ function sendFile(file, response, headers) {
   response.writeHead(200, headers);
   file.pipe(response);
 }
+
+*/
+
+var express = require('express'),
+    app = express();
+
+  app.use(express.static('public'));
+
+  app.get('/', function (req, res) {
+      res.sendFile(__dirname + '/public/UI/html/index.html');
+    });
+
+app.listen(8000);
