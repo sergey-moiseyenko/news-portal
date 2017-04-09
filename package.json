@@ -22,5 +22,9 @@
     "express": "^4.15.2",
     "fs": "0.0.1-security",
     "http": "0.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0"
   }
 }
