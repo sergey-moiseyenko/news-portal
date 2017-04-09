@@ -1,4 +1,4 @@
-;!function (ArticleDetailViewComponent, articleService, domService) {
+;!function (ArticleDetailViewComponent, articleService) {
   'use strict';
 
   class ArticleDetailPageComponent {
@@ -15,10 +15,21 @@
     }
 
     onBackClicked() {
+
+      //<-- set up callback for promise -->
+
+      //let promise = articleService.getArticlesFromDb();
+      //promise.then((articles) => {
+       // new ArticleListPageComponent(articles).render();
+       // new UserCommandsViewComponent()
+      //});
+
+      //<-- end of promise -->
+
       new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
       new UserCommandsComponent().render();
     }
   }
 
   window.ArticleDetailPageComponent = ArticleDetailPageComponent;
-}(window.ArticleDetailViewComponent, window.articleService, window.domService);
+}(window.ArticleDetailViewComponent, window.articleService);

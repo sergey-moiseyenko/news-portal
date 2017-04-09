@@ -1,4 +1,4 @@
-;!function (articles, config, util, tags) {
+;!function (articles, config, util) {
 
   'use strict';
 
@@ -119,6 +119,30 @@
   };
 
   articleService.getArticlesFromDb = () => {
+
+    //<-- create promise -->
+
+    /*let promise = new Promise((resolve, reject) => {
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://localhost:3000/articles', true);
+      xhr.send();
+
+      xhr.onload = () => {
+        let articles = JSON.parse(xhr.responseText, (key, value) => {
+          if (key === 'createdAt') return new Date(value);
+          return value;
+        });
+
+        resolve(articles);
+      }
+    });
+
+    return promise;
+
+*/
+    //<-- end
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:3000/articles', false);
     xhr.send();
@@ -132,4 +156,4 @@
   };
 
   window.articleService = articleService;
-}(window.articles, window.CONFIG, window.util, window.articleTags);
+}(window.articles, window.CONFIG, window.util);

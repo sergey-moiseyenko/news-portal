@@ -1,4 +1,4 @@
-;!function (tags) {
+;!function () {
 
   let tagService = {};
 
@@ -26,4 +26,4 @@
   };
 
   window.tagService = tagService;
-}(window.articleTags);
+}();
