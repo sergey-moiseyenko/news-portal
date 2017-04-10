@@ -1,4 +1,4 @@
-;!function (userService) {
+;!function (userService, domService) {
 
   class AuthorizationComponent {
 
@@ -51,4 +51,4 @@
 
 
   window.AuthorizationComponent = AuthorizationComponent;
-}(window.userService);
+}(window.userService, window.domService);

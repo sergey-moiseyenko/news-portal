@@ -2,22 +2,32 @@
 
   class ArticleListPageComponent {
 
-    constructor(articles = articleService.getArticles(0, 10)) {
+    //articleService.getArticles(0, 10)
+
+    constructor(articles) {
       this.articles = articles;
     }
 
     render() {
-      let articleList = new ArticleListViewComponent(this.articles, this.onDeleteClicked.bind(this)).render();
-      let content = document.querySelector('div.content');
-      content.innerHTML = '';
-      content.appendChild(articleList);
+
+      let promise = articleService.getArticlesFromDb();
+      promise.then(articles => {
+        let articleList = new ArticleListViewComponent(articles, this.onDeleteClicked.bind(this)).render();
+        let content = document.querySelector('div.content');
+        content.innerHTML = '';
+        content.appendChild(articleList);
+        new UserCommandsComponent().render();
+      });
     }
 
     onDeleteClicked(id) {
-      domService.deleteNews(id);
-      this.articles = articleService.getArticles(0, 10);
-      this.render();
-      new UserCommandsComponent().render();
+
+      let promise = articleService.removeArticle(id);
+      promise.then(() => {
+        domService.deleteNews(id);
+        //this.articles = articleService.getArticles(0, 10);
+        //this.render()
+      });
     }
 
     callback(fn) {

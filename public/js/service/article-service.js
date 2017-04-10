@@ -10,12 +10,15 @@
   //articleService.getArticle = id => articles.find(article => article.id === id);
 
   articleService.getArticle = id => {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/article/'+id+'', false);
-    xhr.send();
 
-    if (!xhr.responseText) return undefined;
-    return JSON.parse(xhr.responseText);
+    let onload = (resolve, xhr) => {
+      let response = JSON.parse(xhr.responseText);
+      if (Object.keys(response).length == 0) resolve({});
+      resolve(JSON.parse(xhr.responseText));
+    };
+
+    let promise = getReqPromise('http://localhost:3000/article/'+id+'', 'GET', onload);
+    return promise;
   };
 
   function classOf(o) {
@@ -31,15 +34,28 @@
   };
 
   articleService.addArticle = article => {
-    let articles = articleService.getArticlesFromDb();
-    if (!articleService.isArticleValid(article)) return;
-    articles.unshift(article);
-    articleService.setDataToDb();
 
-    return article;
+    if (!articleService.isArticleValid(article)) return;
+
+    let onload = resolve => {
+      resolve();
+    };
+
+    let promise = sendReqPromise('http://localhost:3000/article', 'POST', article, onload);
+    return promise;
   };
 
   articleService.editArticle = (article) => {
+
+    let onload = resolve => {
+      resolve();
+    };
+
+    let promise = sendReqPromise('http://localhost:3000/article', 'PATCH', article, onload);
+    return promise;
+
+    /*
+
     let articles = articleService.getArticlesFromDb();
     if (!article || !article.id) return false;
     let currentArticle = articleService.getArticle(article.id);
@@ -59,9 +75,24 @@
     articles[articles.indexOf(currentArticle)] = articleClone;
     articleService.setDataToDb();
     return true;
+
+    */
   };
 
   articleService.removeArticle = (id) => {
+
+    //<-- create promise -->
+
+    let onload = resolve => {
+      resolve();
+    };
+
+
+    let promise = sendReqPromise('http://localhost:3000/article', 'DELETE', {id: id}, onload);
+    return promise;
+
+    //<-- end of promise -->
+    /*
     let articles = articleService.getArticlesFromDb();
     if (!id) return;
     let article = articleService.getArticle(id);
@@ -70,6 +101,7 @@
     articles.splice(index, 1);
     articleService.setDataToDb();
     return article;
+    */
   };
 
   articleService.addTag = (tagName, article) => {
@@ -106,54 +138,47 @@
     return filteredArticles;
   };
 
-  /*function saveChanges(articles) {
-    localStorage.setItem('articles', articles);
-  }
-  */
-
-  articleService.setDataToDb = () => {
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/articles', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(articles));
-  };
+  //create promises method's
 
   articleService.getArticlesFromDb = () => {
 
-    //<-- create promise -->
+    let onload = (resolve, xhr) => {
+      let articles = JSON.parse(xhr.responseText, (key, value) => {
+        if (key === 'createdAt') return new Date(value);
+        return value;
+      });
 
-    /*let promise = new Promise((resolve, reject) => {
+      resolve(articles);
+    };
 
+    let promise = getReqPromise('http://localhost:3000/articles', 'GET', onload);
+    return promise;
+  };
+
+  function sendReqPromise(url, method, value, onload) {
+    return new Promise((resolve, reject) => {
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://localhost:3000/articles', true);
+      xhr.open(method, url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(value));
+
+      xhr.onload = () => {
+        onload(resolve);
+      }
+    });
+  }
+
+  function getReqPromise(url, method, onload) {
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
       xhr.send();
 
       xhr.onload = () => {
-        let articles = JSON.parse(xhr.responseText, (key, value) => {
-          if (key === 'createdAt') return new Date(value);
-          return value;
-        });
-
-        resolve(articles);
+        onload(resolve, xhr);
       }
     });
-
-    return promise;
-
-*/
-    //<-- end
-
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/articles', false);
-    xhr.send();
-
-    articles = JSON.parse(xhr.responseText, (key, value) => {
-      if (key === 'createdAt') return new Date(value);
-      return value;
-    });
-
-    return articles;
-  };
+  }
 
   window.articleService = articleService;
 }(window.articles, window.CONFIG, window.util);

@@ -8,26 +8,30 @@
     }
 
     render() {
-      let content = document.querySelector('div.content');
-      content.innerHTML = '';
-      let detailArticleElement = new ArticleDetailViewComponent(articleService.getArticle(this.articleId), this.onBackClicked);
-      content.appendChild(detailArticleElement.render());
+
+      let promise = articleService.getArticle(this.articleId);
+      promise.then(article => {
+        let content = document.querySelector('div.content');
+        content.innerHTML = '';
+        let detailArticleElement = new ArticleDetailViewComponent(article, this.onBackClicked);
+        content.appendChild(detailArticleElement.render());
+      });
     }
 
     onBackClicked() {
 
       //<-- set up callback for promise -->
 
-      //let promise = articleService.getArticlesFromDb();
-      //promise.then((articles) => {
-       // new ArticleListPageComponent(articles).render();
-       // new UserCommandsViewComponent()
-      //});
+      let promise = articleService.getArticlesFromDb();
+      promise.then(articles => {
+        new ArticleListPageComponent(articles).render();
+        new UserCommandsViewComponent()
+      });
 
       //<-- end of promise -->
 
-      new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
-      new UserCommandsComponent().render();
+      //new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
+      //new UserCommandsComponent().render();
     }
   }
 

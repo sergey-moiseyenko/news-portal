@@ -4,7 +4,7 @@
   const articleView = window.articleView;
   let domService = {};
   let countArticlesOnPage = config.ARTICLE_COUNT_ON_PAGE;
-  let currentArticles = articleService.getArticles(0, config.ARTICLE_COUNT_ON_PAGE);
+  let currentArticles = [];
 
   domService.showNews = (article) => {
     let detailArticle = window.detailArticleView(article);
@@ -20,14 +20,11 @@
   };
 
   domService.deleteNews = id => {
-    let article = articleService.removeArticle(id);
-    if (!article) return;
-    article = document.getElementById(id);
+    let article = document.getElementById(id);
     if (!article) return;
 
     let newsListDiv = document.getElementById('news-list-id');
     newsListDiv.removeChild(article);
-    currentArticles = articleService.getArticles(0, countArticlesOnPage);
   };
 
   domService.editNews = (id, articleForEdit) => {

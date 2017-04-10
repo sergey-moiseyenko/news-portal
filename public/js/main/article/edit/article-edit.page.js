@@ -5,40 +5,50 @@
 
     constructor(articleId) {
       this.articleId = articleId;
-      this.article = articleService.getArticle(this.articleId);
+      //this.article = articleService.getArticle(this.articleId);
     }
 
     render() {
-      let content = document.querySelector('div.content');
-      content.innerHTML = '';
-      let ComponentConstructor = (this.articleId) ? ArticleEditViewComponent : ArticleAddViewComponent;
-      let article = (this.articleId)? this.article : {id: Date.now().toString()};
-      let component = new ComponentConstructor(article, this.callback(this.onArticleAdd), this.callback(this.onBack));
-      content.appendChild(component.render());
+
+      let promise = articleService.getArticle(this.articleId);
+      promise.then(article => {
+        let content = document.querySelector('div.content');
+        content.innerHTML = '';
+        let ComponentConstructor = (this.articleId) ? ArticleEditViewComponent : ArticleAddViewComponent;
+        article = (this.articleId)? article : {id: Date.now().toString()};
+        let component = new ComponentConstructor(article, this.callback(this.onArticleAdd), this.callback(this.onBack));
+        content.appendChild(component.render());
+      });
     }
 
     onArticleAdd(articleUpdated) {
+
       let serviceFn = (this.articleId)? articleService.editArticle : articleService.addArticle;
-      serviceFn.call(articleService, articleUpdated);
-      let content = document.querySelector('div.content');
-      new ArticleListPageComponent().render(articleService.getArticles(CONFIG.SKIP_DEFAULTS, CONFIG.TOP_DEFAULTS));
-      new UserCommandsComponent().render();
+      let promise = serviceFn.call(articleService, articleUpdated);
+      promise.then(() => {
+        let content = document.querySelector('div.content');
+        let promise = articleService.getArticlesFromDb();
+        promise.then((articles) => {
+          new ArticleListPageComponent().render(articles);
+          new UserCommandsComponent().render();
+        });
+      });
     }
 
     onBack() {
 
       //<-- set up callback for promise -->
 
-      //let promise = articleService.getArticlesFromDb();
-      //promise.then((articles) => {
-        //new ArticleListPageComponent(articles).render();
-        //new UserCommandsViewComponent()
-      //});
+      let promise = articleService.getArticlesFromDb();
+      promise.then((articles) => {
+        new ArticleListPageComponent(articles).render();
+        new UserCommandsViewComponent()
+      });
 
       //<-- end of promise -->
 
-      new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
-      new UserCommandsComponent().render();
+      //new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
+      //new UserCommandsComponent().render();
     }
 
     callback(fn) {

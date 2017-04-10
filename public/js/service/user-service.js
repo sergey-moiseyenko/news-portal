@@ -38,5 +38,18 @@
     return users;
   };
 
+
+
+  //create promise
+
+  function createPromise(url) {
+
+    return new Promise((resolve, reject) => {
+
+    });
+  };
+
+  //
+
   window.userService = userService;
 }(window.users);

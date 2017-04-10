@@ -1,4 +1,4 @@
-;!function () {
+;!function (domService) {
 
   class UserCommandsComponent {
 
@@ -9,7 +9,8 @@
     render() {
       let userCommandsView = new UserCommandsViewComponent(this.onloadClicked.bind(this)).render();
       let content = document.querySelector('div.content');
-      content.appendChild(userCommandsView);
+      console.log(content.appendChild(userCommandsView));
+      console.log(content);
       domService.usersConfig();
     }
 
@@ -20,4 +21,4 @@
   }
 
   window.UserCommandsComponent = UserCommandsComponent;
-}();
+}(window.domService);

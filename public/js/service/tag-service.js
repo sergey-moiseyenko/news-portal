@@ -14,7 +14,7 @@
     let tags = [];
 
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/tags', false);
+    xhr.open('GET', 'http://localhost:3000/tags', false);
     xhr.send();
 
     let loadTags = JSON.parse(xhr.responseText);
