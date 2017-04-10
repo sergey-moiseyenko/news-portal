@@ -10,8 +10,7 @@
 
     render() {
 
-      let promise = articleService.getArticlesFromDb();
-      promise.then(articles => {
+      articleService.getArticlesFromDb().then(articles => {
         let articleList = new ArticleListViewComponent(articles, this.onDeleteClicked.bind(this)).render();
         let content = document.querySelector('div.content');
         content.innerHTML = '';
@@ -22,8 +21,7 @@
 
     onDeleteClicked(id) {
 
-      let promise = articleService.removeArticle(id);
-      promise.then(() => {
+      articleService.removeArticle(id).then(() => {
         domService.deleteNews(id);
         //this.articles = articleService.getArticles(0, 10);
         //this.render()

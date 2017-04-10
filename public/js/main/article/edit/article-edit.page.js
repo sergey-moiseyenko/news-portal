@@ -10,8 +10,7 @@
 
     render() {
 
-      let promise = articleService.getArticle(this.articleId);
-      promise.then(article => {
+      articleService.getArticle(this.articleId).then(article => {
         let content = document.querySelector('div.content');
         content.innerHTML = '';
         let ComponentConstructor = (this.articleId) ? ArticleEditViewComponent : ArticleAddViewComponent;
@@ -24,11 +23,9 @@
     onArticleAdd(articleUpdated) {
 
       let serviceFn = (this.articleId)? articleService.editArticle : articleService.addArticle;
-      let promise = serviceFn.call(articleService, articleUpdated);
-      promise.then(() => {
+      serviceFn.call(articleService, articleUpdated).then(() => {
         let content = document.querySelector('div.content');
-        let promise = articleService.getArticlesFromDb();
-        promise.then((articles) => {
+        articleService.getArticlesFromDb().then((articles) => {
           new ArticleListPageComponent().render(articles);
           new UserCommandsComponent().render();
         });
@@ -38,9 +35,7 @@
     onBack() {
 
       //<-- set up callback for promise -->
-
-      let promise = articleService.getArticlesFromDb();
-      promise.then((articles) => {
+      articleService.getArticlesFromDb().then((articles) => {
         new ArticleListPageComponent(articles).render();
         new UserCommandsViewComponent()
       });

@@ -9,8 +9,7 @@
 
     render() {
 
-      let promise = articleService.getArticle(this.articleId);
-      promise.then(article => {
+      articleService.getArticle(this.articleId).then(article => {
         let content = document.querySelector('div.content');
         content.innerHTML = '';
         let detailArticleElement = new ArticleDetailViewComponent(article, this.onBackClicked);
@@ -22,8 +21,7 @@
 
       //<-- set up callback for promise -->
 
-      let promise = articleService.getArticlesFromDb();
-      promise.then(articles => {
+      articleService.getArticlesFromDb().then(articles => {
         new ArticleListPageComponent(articles).render();
         new UserCommandsViewComponent()
       });
