@@ -12,7 +12,7 @@
     }
 
     routeDefault() {
-      this.articleListComponent.render();
+      this.articleListComponent.init();
       this.userComponent.onload();
       this.userCommands.render();
     }

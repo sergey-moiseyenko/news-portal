@@ -11,7 +11,6 @@
 
     signInClicked(filter) {
       new ArticleListPageComponent(articleService.getArticles(CONFIG.SKIP_DEFAULTS, CONFIG.TOP_DEFAULTS, filter)).render();
-      new UserCommandsComponent().render();
     }
 
     addClicked(tags = []) {

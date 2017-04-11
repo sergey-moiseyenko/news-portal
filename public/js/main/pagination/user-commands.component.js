@@ -9,6 +9,7 @@
     render() {
       let userCommandsView = new UserCommandsViewComponent(this.onloadClicked.bind(this)).render();
       let content = document.querySelector('div.content');
+      content.appendChild(userCommandsView);
       domService.usersConfig();
     }
 

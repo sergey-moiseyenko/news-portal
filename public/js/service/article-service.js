@@ -121,7 +121,16 @@
   };
 
   articleService.getArticles = (skip, top, filter = {}) => {
-    let articles = articleService.getArticlesFromDb();
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:3000/articles', false);
+    xhr.send();
+
+    let articles = JSON.parse(xhr.responseText, (key, value) => {
+      if (key === 'createdAt') return new Date(value);
+      return value;
+    });
+
     let filterTags = filter.tags || [];
     delete filter.tags;
     let filterKeys = Object.keys(filter);
