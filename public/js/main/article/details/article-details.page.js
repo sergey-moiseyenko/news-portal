@@ -18,18 +18,7 @@
     }
 
     onBackClicked() {
-
-      //<-- set up callback for promise -->
-
-      articleService.getArticlesFromDb().then(articles => {
-        new ArticleListPageComponent(articles).render();
-        new UserCommandsViewComponent()
-      });
-
-      //<-- end of promise -->
-
-      //new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
-      //new UserCommandsComponent().render();
+      new ArticleListPageComponent().init();
     }
   }
 

@@ -10,7 +10,8 @@
     }
 
     signInClicked(filter) {
-      new ArticleListPageComponent(articleService.getArticles(CONFIG.SKIP_DEFAULTS, CONFIG.TOP_DEFAULTS, filter)).render();
+      console.log(filter);
+      new ArticleListPageComponent().init(undefined, filter);
     }
 
     addClicked(tags = []) {
@@ -18,7 +19,6 @@
 
       let addedTags = [];
       tags.forEach(tag => {
-        //if (tagService.hasTag(tag)) return;
         if (tagService.getArticleTags().indexOf(tag) != -1) return tag;
         tagService.updateLocalTags(tag);
         addedTags.push(tag);

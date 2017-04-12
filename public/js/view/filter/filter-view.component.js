@@ -56,8 +56,10 @@
     signInClicked() {
       let filter = {};
       let tagElement = document.getElementById('input-tags');
-      let tags = tagElement.value.split(' ');
-      if (tags.length != 0) filter.tags = tags;
+      if (tagElement.value.length !== 0) {
+        let tags = tagElement.value.split(' ');
+        filter.tags = tags;
+      }
       let authorElement = document.getElementById('input-author');
       if (authorElement.value) filter.author = authorElement.value;
       let dateElement = document.getElementById('input-date');

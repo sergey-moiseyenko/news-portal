@@ -25,25 +25,12 @@
       let serviceFn = (this.articleId)? articleService.editArticle : articleService.addArticle;
       serviceFn.call(articleService, articleUpdated).then(() => {
         let content = document.querySelector('div.content');
-        articleService.getArticlesFromDb().then((articles) => {
-          new ArticleListPageComponent().render(articles);
-          new UserCommandsComponent().render();
-        });
+          new ArticleListPageComponent().init();
       });
     }
 
     onBack() {
-
-      //<-- set up callback for promise -->
-      articleService.getArticlesFromDb().then((articles) => {
-        new ArticleListPageComponent(articles).render();
-        new UserCommandsViewComponent()
-      });
-
-      //<-- end of promise -->
-
-      //new ArticleListPageComponent(articleService.getArticlesFromDb()).render();
-      //new UserCommandsComponent().render();
+      new ArticleListPageComponent().init();
     }
 
     callback(fn) {

@@ -82,26 +82,12 @@
   articleService.removeArticle = (id) => {
 
     //<-- create promise -->
-
     let onload = resolve => {
       resolve();
     };
 
-
     let promise = sendReqPromise('http://localhost:3000/article', 'DELETE', {id: id}, onload);
     return promise;
-
-    //<-- end of promise -->
-    /*
-    let articles = articleService.getArticlesFromDb();
-    if (!id) return;
-    let article = articleService.getArticle(id);
-    if (!article) return;
-    let index = articles.indexOf(article);
-    articles.splice(index, 1);
-    articleService.setDataToDb();
-    return article;
-    */
   };
 
   articleService.addTag = (tagName, article) => {
@@ -122,47 +108,24 @@
 
   articleService.getArticles = (skip, top, filter = {}) => {
 
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/articles', false);
-    xhr.send();
+    return new Promise((resolve, reject) => {
 
-    let articles = JSON.parse(xhr.responseText, (key, value) => {
-      if (key === 'createdAt') return new Date(value);
-      return value;
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://localhost:3000/articles?parameters=' + encodeURIComponent(JSON.stringify(filter)), true);
+      xhr.send();
+
+      xhr.onload = () => {
+        let articles = JSON.parse(xhr.responseText, (key, value) => {
+          if (key === 'createdAt') return new Date(value);
+          return value;
+        });
+
+        resolve(articles);
+      }
     });
-
-    let filterTags = filter.tags || [];
-    delete filter.tags;
-    let filterKeys = Object.keys(filter);
-    let filteredArticles = articles.filter(article => {
-      if (!filterTags.every(tag => article.tags.includes(tag))) return false;
-      return filterKeys.every(filterKey => filter[filterKey].toString() === article[filterKey].toString());
-    });
-
-    skip = util.skipNumberValid(skip, filteredArticles.length);
-    top = util.topNumberValid(top);
-    filteredArticles = filteredArticles.slice(skip, skip + top);
-    filteredArticles.sort((article1, article2) => article2.createdAt - article1.createdAt);
-
-    return filteredArticles;
   };
 
   //create promises method's
-
-  articleService.getArticlesFromDb = () => {
-
-    let onload = (resolve, xhr) => {
-      let articles = JSON.parse(xhr.responseText, (key, value) => {
-        if (key === 'createdAt') return new Date(value);
-        return value;
-      });
-
-      resolve(articles);
-    };
-
-    let promise = getReqPromise('http://localhost:3000/articles', 'GET', onload);
-    return promise;
-  };
 
   function sendReqPromise(url, method, value, onload) {
     return new Promise((resolve, reject) => {

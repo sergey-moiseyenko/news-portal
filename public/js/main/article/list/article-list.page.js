@@ -8,9 +8,9 @@
       this.articles = articles;
     }
 
-    init(articles) {
+    init(articles, filter = {}) {
       if (!articles) {
-        articleService.getArticlesFromDb().then(articles => {
+        articleService.getArticles(0, 10, filter).then(articles => {
           this.articles = articles;
           this.render();
         });
