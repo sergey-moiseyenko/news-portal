@@ -1,8 +1,6 @@
-;!function (articleService, ArticleListViewComponent) {
+;!function (articleService, ArticleListViewComponent, config) {
 
   class ArticleListPageComponent {
-
-    //articleService.getArticles(0, 10)
 
     constructor(articles) {
       this.articles = articles;
@@ -10,13 +8,12 @@
 
     init(articles, filter = {}) {
       if (!articles) {
-        articleService.getArticles(0, 10, filter).then(articles => {
+        articleService.getArticles(config.SKIP_DEFAULTS, config.TOP_DEFAULTS, filter).then(articles => {
           this.articles = articles;
           this.render();
         });
         return;
       }
-
       this.render(articles);
     }
 
@@ -33,8 +30,6 @@
 
       articleService.removeArticle(id).then(() => {
         domService.deleteNews(id);
-        //this.articles = articleService.getArticles(0, 10);
-        //this.render()
       });
     }
 
@@ -44,4 +39,4 @@
   }
 
   window.ArticleListPageComponent = ArticleListPageComponent;
-}(window.articleService, window.ArticleListViewComponent);
+}(window.articleService, window.ArticleListViewComponent, window.CONFIG);

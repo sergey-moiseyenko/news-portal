@@ -24,8 +24,6 @@
 
     onload() {
 
-      //<-- get user after load -->
-
       let user = userService.getUser();
       if (!user) {
         domService.usersConfig();

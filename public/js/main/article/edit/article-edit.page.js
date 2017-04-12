@@ -5,7 +5,6 @@
 
     constructor(articleId) {
       this.articleId = articleId;
-      //this.article = articleService.getArticle(this.articleId);
     }
 
     render() {

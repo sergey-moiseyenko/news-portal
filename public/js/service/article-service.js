@@ -7,8 +7,6 @@
   let newsTags = config.TAGS;
   let articleService = {};
 
-  //articleService.getArticle = id => articles.find(article => article.id === id);
-
   articleService.getArticle = id => {
 
     let onload = (resolve, xhr) => {
@@ -53,30 +51,6 @@
 
     let promise = sendReqPromise('http://localhost:3000/article', 'PATCH', article, onload);
     return promise;
-
-    /*
-
-    let articles = articleService.getArticlesFromDb();
-    if (!article || !article.id) return false;
-    let currentArticle = articleService.getArticle(article.id);
-    if (!currentArticle) return false;
-
-    let properties = ['title', 'summary', 'content', 'tags'];
-    let articleClone = Object.assign({}, currentArticle);
-
-    properties.forEach((propertyName) => {
-      if (article[propertyName]) {
-        articleClone[propertyName] = article[propertyName];
-      }
-    });
-
-    if (!articleService.isArticleValid(articleClone)) return false;
-
-    articles[articles.indexOf(currentArticle)] = articleClone;
-    articleService.setDataToDb();
-    return true;
-
-    */
   };
 
   articleService.removeArticle = (id) => {
