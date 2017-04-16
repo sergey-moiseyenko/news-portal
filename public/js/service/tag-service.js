@@ -19,7 +19,7 @@
 
     let loadTags = JSON.parse(xhr.responseText);
     loadTags.forEach(tag => {
-      if(tag.tag) tags.push(tag.tag);
+      if(tag) tags.push(tag);
     });
 
     return tags

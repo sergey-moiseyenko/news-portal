@@ -11,8 +11,8 @@
 
     let onload = (resolve, xhr) => {
       let response = JSON.parse(xhr.responseText);
-      if (Object.keys(response).length == 0) resolve({});
-      resolve(JSON.parse(xhr.responseText));
+      if (Object.keys(response).length == 0) resolve();
+      else resolve(JSON.parse(xhr.responseText));
     };
 
     let promise = getReqPromise('http://localhost:3000/article/'+id+'', 'GET', onload);
