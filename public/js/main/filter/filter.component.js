@@ -1,12 +1,13 @@
-;!function() {
+;!function(config) {
 
   class FilterComponent {
 
     render() {
-      let tags = tagService.getArticleTags();
-      let filterViewElement = new FilterViewComponent(this.signInClicked.bind(this), this.addClicked.bind(this), tags).render();
-      let dropMenuElem = document.querySelector('div.drop-down-menu');
-      dropMenuElem.insertBefore(filterViewElement, dropMenuElem.firstElementChild);
+      tagService.getArticleTags().then(tags => {
+        let filterViewElement = new FilterViewComponent(this.signInClicked.bind(this), this.addClicked.bind(this), tags).render();
+        let dropMenuElem = document.querySelector('div.drop-down-menu');
+        dropMenuElem.insertBefore(filterViewElement, dropMenuElem.firstElementChild);
+      });
     }
 
     signInClicked(filter) {
@@ -17,9 +18,10 @@
     addClicked(tags = []) {
       if (!tags) return;
 
+      console.log(tags);
       let addedTags = [];
       tags.forEach(tag => {
-        if (tagService.getArticleTags().indexOf(tag) != -1) return tag;
+        if (config.TAGS.indexOf(tag) != -1) return tag;
         tagService.updateLocalTags(tag);
         addedTags.push(tag);
       });
@@ -36,4 +38,4 @@
   }
 
   window.FilterComponent = FilterComponent;
-}();
+}(window.CONFIG);
