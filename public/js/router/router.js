@@ -12,9 +12,8 @@
     }
 
     routeDefault() {
+      this.userComponent.init();
       this.articleListComponent.init();
-      this.userComponent.onload();
-      this.userCommands.render();
     }
   }
 

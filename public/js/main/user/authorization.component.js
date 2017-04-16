@@ -13,37 +13,40 @@
       if (!user) return;
 
       // <-- check user exist -->
-      if (!userService.setUser(user)) return;
 
-      let logInCell = document.querySelector('div.sign-in-out-cell');
-      logInCell.innerHTML = '<label class="user-name">'+ user.name +'</label>' +
-        '<input type="button" class="sign-in-button" value="sing out"/>';
-      logInCell.querySelector('input.sign-in-button').addEventListener('click', this.signOutClicked.bind(this));
-      domService.usersConfig();
+      userService.setUser(user).then((isExist) => {
+        if (!isExist) return;
+
+        let logInCell = document.querySelector('div.sign-in-out-cell');
+        logInCell.innerHTML = '<label class="user-name">'+ user.name +'</label>' +
+          '<input type="button" class="sign-in-button" value="sing out"/>';
+        logInCell.querySelector('input.sign-in-button').addEventListener('click', this.signOutClicked.bind(this));
+        domService.usersConfig();
+      });
     }
 
-    onload() {
+    init() {
+      userService.getUser().then(this.onload.bind(this));
+    }
 
-      let user = userService.getUser();
-      if (!user) {
-        domService.usersConfig();
-        return;
-      }
+    onload(user) {
+
+      if (!user) return;
 
       let logInCell = document.querySelector('div.sign-in-out-cell');
       logInCell.innerHTML = '<label class="user-name">'+ user.name +'</label>' +
         '<input type="button" class="sign-in-button" value="sing out"/>';
       logInCell.querySelector('input.sign-in-button').addEventListener('click', this.signOutClicked.bind(this));
-      domService.usersConfig();
     }
 
     signOutClicked() {
-      userService.removeCurrentUser();
-      let logInCell = document.querySelector('div.sign-in-out-cell');
-      logInCell.innerHTML = '<label class="user-name"></label>' +
-        '<input type="button" class="sign-in-button" value="sing in"/>';
-      logInCell.querySelector('input.sign-in-button').addEventListener('click', this.render.bind(this));
-      domService.usersConfig();
+      userService.removeCurrentUser().then(() => {
+        let logInCell = document.querySelector('div.sign-in-out-cell');
+        logInCell.innerHTML = '<label class="user-name"></label>' +
+          '<input type="button" class="sign-in-button" value="sing in"/>';
+        logInCell.querySelector('input.sign-in-button').addEventListener('click', this.render.bind(this));
+        domService.usersConfig();
+      });
     }
   }
 
