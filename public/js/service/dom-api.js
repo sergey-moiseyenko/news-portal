@@ -147,11 +147,13 @@
     let filterForm = document.createElement('div');
     filterForm.innerHTML = window.filterView();
     let select = filterForm.querySelector('select');
-    let tags = tagService.getArticleTags();
-    tags.forEach(tag => {
-      let option = document.createElement('option');
-      option.innerHTML = tag;
-      select.appendChild(option);
+    tagService.getArticleTags().then(tags => {
+      tags.forEach(tag => {
+        console.log(tag);
+        let option = document.createElement('option');
+        option.innerHTML = tag;
+        select.appendChild(option);
+      });
     });
     filterMenuButton.insertBefore(filterForm, filterMenuButton.firstChild);
   };

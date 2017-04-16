@@ -1,4 +1,4 @@
-;!function () {
+;!function (PromiseWrapper) {
 
   let tagService = {};
 
@@ -12,23 +12,19 @@
 
   tagService.getArticleTags = () => {
 
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://localhost:3000/tags', true);
-      xhr.send();
+    let onload = (resolve, xhr) => {
+      let tags = [];
 
-      xhr.onload = () => {
-        let tags = [];
+      let loadTags = JSON.parse(xhr.responseText);
+      loadTags.forEach(tag => {
+        if (tag) tags.push(tag);
+      });
 
-        let loadTags = JSON.parse(xhr.responseText);
-        loadTags.forEach(tag => {
-          if (tag) tags.push(tag);
-        });
+      resolve(tags);
+    };
 
-        resolve(tags);
-      }
-    });
+    return new PromiseWrapper('http://localhost:3000/tags', onload).get();
   };
 
   window.tagService = tagService;
-}();
+}(window.PromiseWrapper);

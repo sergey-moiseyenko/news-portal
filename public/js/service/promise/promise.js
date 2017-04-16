@@ -1,5 +1,9 @@
 ;!function () {
 
+  //desc
+  //<-- when you called callback(onload function)
+  //<-- you don't need to throw parameter called xhr, but better do it
+
   class PromiseWrapper{
 
     constructor(url, onload) {
@@ -53,7 +57,7 @@
         xhr.send(JSON.stringify(value));
 
         xhr.onload = () => {
-          this.onload(resolve);
+          this.onload(resolve, xhr);
         }
       })
     }

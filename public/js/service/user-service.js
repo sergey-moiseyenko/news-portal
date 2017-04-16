@@ -1,4 +1,4 @@
-;!function (users) {
+;!function (users, PromiseWrapper) {
 
   let userService = {};
 
@@ -6,43 +6,31 @@
 
     //<-- check user exist -->
 
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost:3000/user', true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.send(JSON.stringify(user));
+    let onload = (resolve, xhr) => {
+      if (xhr.status == 400) resolve(false);
+      else resolve(true);
+    };
 
-      xhr.onload = () => {
-        if (xhr.status == 400) resolve(false);
-        else resolve(true);
-      }
-    });
+    return new PromiseWrapper('http://localhost:3000/user', onload).post(user);
   };
 
   userService.getUser = () => {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://localhost:3000/current_user', true);
-      xhr.send();
 
-      xhr.onload = () => {
-        console.log(xhr.responseText);
-        resolve(JSON.parse(xhr.responseText)[0]);
-      }
-    });
+    let onload = (resolve, xhr) => {
+      resolve(JSON.parse(xhr.responseText)[0]);
+    };
+
+    return new PromiseWrapper('http://localhost:3000/current_user', onload).get();
   };
 
   userService.removeCurrentUser = () => {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.open('DELETE', 'http://localhost:3000/logout', true);
-      xhr.send();
 
-      xhr.onload = () => {
-        resolve();
-      }
-    });
+    let onload = (resolve) => {
+      resolve();
+    };
+
+    return new PromiseWrapper('http://localhost:3000/logout', onload).delete();
   };
 
   window.userService = userService;
-}(window.users);
+}(window.users, window.PromiseWrapper);
