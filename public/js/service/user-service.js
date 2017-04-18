@@ -11,7 +11,7 @@
       else resolve(true);
     };
 
-    return new PromiseWrapper('http://localhost:3000/user', onload).post(user);
+    return new PromiseWrapper('http://localhost:3000/user/user', onload).post(user);
   };
 
   userService.getUser = () => {
@@ -20,7 +20,7 @@
       resolve(JSON.parse(xhr.responseText)[0]);
     };
 
-    return new PromiseWrapper('http://localhost:3000/current_user', onload).get();
+    return new PromiseWrapper('http://localhost:3000/user/current_user', onload).get();
   };
 
   userService.removeCurrentUser = () => {
@@ -29,7 +29,7 @@
       resolve();
     };
 
-    return new PromiseWrapper('http://localhost:3000/logout', onload).delete();
+    return new PromiseWrapper('http://localhost:3000/user/logout', onload).delete();
   };
 
   window.userService = userService;

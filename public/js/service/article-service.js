@@ -17,7 +17,7 @@
       else resolve(JSON.parse(xhr.responseText));
     };
 
-    return new PromiseWrapper('http://localhost:3000/article/'+id+'', onload).get();
+    return new PromiseWrapper('http://localhost:3000/article/article/'+id+'', onload).get();
   };
 
   //<-- method use promise wrapper -->
@@ -27,7 +27,7 @@
       resolve();
     };
 
-    return new PromiseWrapper('http://localhost:3000/article', onload).post(article);
+    return new PromiseWrapper('http://localhost:3000/article/article', onload).post(article);
   };
 
   //<-- method use promise wrapper -->
@@ -37,7 +37,7 @@
       resolve();
     };
 
-    return new PromiseWrapper('http://localhost:3000/article', onload).patch(article);
+    return new PromiseWrapper('http://localhost:3000/article/article', onload).patch(article);
   };
 
   //<-- method use promise wrapper -->
@@ -47,7 +47,7 @@
       resolve();
     };
 
-    return new PromiseWrapper('http://localhost:3000/article', onload).delete({id: id});
+    return new PromiseWrapper('http://localhost:3000/article/article', onload).delete({id: id});
   };
 
   articleService.addTag = (tagName, article) => {
@@ -77,7 +77,7 @@
       resolve(articles);
     };
 
-    let url = 'http://localhost:3000/articles?parameters=' + encodeURIComponent(JSON.stringify(filter));
+    let url = 'http://localhost:3000/article/articles?parameters=' + encodeURIComponent(JSON.stringify(filter));
     return new PromiseWrapper(url, onload).get();
   };
 
