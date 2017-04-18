@@ -19,6 +19,10 @@
 
         xhr.onload = () => {
           this.onload(resolve, xhr);
+        };
+
+        xhr.onerror = () => {
+          reject(new Error('Invalid data'));
         }
       })
     }
@@ -32,6 +36,10 @@
 
         xhr.onload = () => {
           this.onload(resolve);
+        };
+
+        xhr.onerror = () => {
+          reject(new Error('Invalid data'));
         }
       })
     }
@@ -45,6 +53,10 @@
 
         xhr.onload = () => {
           this.onload(resolve);
+        };
+
+        xhr.onerror = () => {
+          reject(new Error('Invalid data'));
         }
       })
     }
@@ -58,6 +70,10 @@
 
         xhr.onload = () => {
           this.onload(resolve, xhr);
+        };
+
+        xhr.onerror = () => {
+          reject(new Error('Invalid data'));
         }
       })
     }
