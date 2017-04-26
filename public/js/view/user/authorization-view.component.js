@@ -31,7 +31,7 @@
     signInClicked() {
       let user = {};
       let form = document.querySelector('form.sing-in-frame');
-      user.name = form.querySelector('input.user-name-input').value;
+      user.username = form.querySelector('input.user-name-input').value;
       user.password = form.querySelector('input.user-password-input').value;
       this.onSignIn(user);
     }

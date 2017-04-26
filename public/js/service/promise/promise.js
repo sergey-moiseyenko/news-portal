@@ -11,6 +11,23 @@
       this.onload = onload;
     }
 
+    basicAuth(config) {
+      return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', this.url, true);
+        xhr.setRequestHeader("Authorization", "Basic " + btoa(config));
+        xhr.send();
+
+        xhr.onload = () => {
+          this.onload(resolve, xhr);
+        };
+
+        xhr.onerror = () => {
+          reject();
+        }
+      });
+    }
+
     get() {
       return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();

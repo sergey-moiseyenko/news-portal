@@ -105,7 +105,7 @@
     if (!user) return;
     let singInCell = document.querySelector('div.sign-in-out-cell');
     let label = singInCell.querySelector('label.user-name');
-    label.innerHTML = user.name;
+    label.innerHTML = user.username;
     let singInButton = singInCell.querySelector('input.sign-in-button');
     singInButton.value = 'sing-out';
   };
