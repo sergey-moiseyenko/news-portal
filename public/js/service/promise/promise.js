@@ -32,6 +32,7 @@
       return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', this.url, true);
+        xhr.withCredentials = true;
         xhr.send();
 
         xhr.onload = () => {
@@ -48,6 +49,7 @@
       return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.open('PATCH', this.url, true);
+        xhr.withCredentials = true;
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(value));
 
@@ -65,6 +67,7 @@
       return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.open('DELETE', this.url, true);
+        xhr.withCredentials = true;
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(value));
 
@@ -82,6 +85,7 @@
       return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', this.url, true);
+        xhr.withCredentials = true;
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(value));
 

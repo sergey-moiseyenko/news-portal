@@ -4,18 +4,12 @@
 
   userService.setUser = (user) => {
 
-    if (!user) user = JSON.parse(localStorage.getItem('user')) || {};
-
-    onload = (resolve, xhr) => {
-      if (xhr.status === 200) {
-        localStorage.clear();
-        localStorage.setItem('user', xhr.responseText);
-        resolve(true);
-      }
+    let onload = (resolve, xhr) => {
+      if (xhr.status === 200) resolve(true);
       else resolve(false);
     };
 
-    return new PromiseWrapper('http://localhost:3000/user/user', onload).basicAuth(user.username + ":" + user.password);
+    return new PromiseWrapper('http://localhost:3000/user/user', onload).post(user);
   };
 
   userService.getUser = () => {
@@ -23,7 +17,24 @@
   };
 
   userService.removeCurrentUser = () => {
-    localStorage.clear();
+    let onload = (resolve) => {
+      resolve();
+    };
+
+    return new PromiseWrapper('http://localhost:3000/user/logout', onload).delete();
+  };
+
+  userService.isLogin = () => {
+    let onload = (resolve, xhr) => {
+      if(xhr.status === 401) resolve({});
+      else {
+        let user = {};
+        user.username = xhr.responseText;
+        resolve(user);
+      }
+    };
+
+    return new PromiseWrapper('http://localhost:3000/user/isLogin', onload).get();
   };
 
   window.userService = userService;

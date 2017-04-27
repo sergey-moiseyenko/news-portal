@@ -26,12 +26,14 @@
     }
 
     init() {
-      this.onload(userService.getUser());
+      userService.isLogin().then((user) => {
+        this.onload(user);
+      });
     }
 
     onload(user) {
 
-      if (!user) return;
+      if (!user.username) return;
 
       let logInCell = document.querySelector('div.sign-in-out-cell');
       logInCell.innerHTML = '<label class="user-name">' + user.username + '</label>' +
